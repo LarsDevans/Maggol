@@ -10,9 +10,26 @@
 		D1B96B5F2D569A820007530C /* Maggol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maggol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D1DFEEE22D56A2CA00AEB0DA /* Exceptions for "Maggol" folder in "Maggol" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Application/Features/Feature A/Models/.gitkeep",
+				"Application/Features/Feature A/ViewModels/.gitkeep",
+				"Application/Features/Feature A/Views/.gitkeep",
+				Application/Services/.gitkeep,
+				Application/Utilities/.gitkeep,
+			);
+			target = D1B96B5E2D569A820007530C /* Maggol */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D1B96B612D569A820007530C /* Maggol */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D1DFEEE22D56A2CA00AEB0DA /* Exceptions for "Maggol" folder in "Maggol" target */,
+			);
 			path = Maggol;
 			sourceTree = "<group>";
 		};
