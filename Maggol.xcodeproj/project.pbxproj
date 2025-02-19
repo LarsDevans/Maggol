@@ -6,11 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		D159F9A42D65F6370067FF78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1B96B572D569A820007530C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D1B96B5E2D569A820007530C;
+			remoteInfo = Maggol;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		D159F9A02D65F6370067FF78 /* MaggolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaggolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B96B5F2D569A820007530C /* Maggol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maggol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D159F9B02D65F6AE0067FF78 /* Exceptions for "Maggol" folder in "MaggolTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Application/Features/Feature A/Models/Dummy.swift",
+				Application/Services/DataService.swift,
+			);
+			target = D159F99F2D65F6370067FF78 /* MaggolTests */;
+		};
 		D1DFEEE22D56A2CA00AEB0DA /* Exceptions for "Maggol" folder in "Maggol" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -25,10 +44,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		D159F9A12D65F6370067FF78 /* MaggolTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MaggolTests;
+			sourceTree = "<group>";
+		};
 		D1B96B612D569A820007530C /* Maggol */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				D1DFEEE22D56A2CA00AEB0DA /* Exceptions for "Maggol" folder in "Maggol" target */,
+				D159F9B02D65F6AE0067FF78 /* Exceptions for "Maggol" folder in "MaggolTests" target */,
 			);
 			path = Maggol;
 			sourceTree = "<group>";
@@ -36,6 +61,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D159F99D2D65F6370067FF78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1B96B5C2D569A820007530C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -50,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				D1B96B612D569A820007530C /* Maggol */,
+				D159F9A12D65F6370067FF78 /* MaggolTests */,
 				D1B96B602D569A820007530C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				D1B96B5F2D569A820007530C /* Maggol.app */,
+				D159F9A02D65F6370067FF78 /* MaggolTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +99,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D159F99F2D65F6370067FF78 /* MaggolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D159F9A82D65F6370067FF78 /* Build configuration list for PBXNativeTarget "MaggolTests" */;
+			buildPhases = (
+				D159F99C2D65F6370067FF78 /* Sources */,
+				D159F99D2D65F6370067FF78 /* Frameworks */,
+				D159F99E2D65F6370067FF78 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D159F9A52D65F6370067FF78 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D159F9A12D65F6370067FF78 /* MaggolTests */,
+			);
+			name = MaggolTests;
+			packageProductDependencies = (
+			);
+			productName = MaggolTests;
+			productReference = D159F9A02D65F6370067FF78 /* MaggolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D1B96B5E2D569A820007530C /* Maggol */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D1B96B6F2D569A830007530C /* Build configuration list for PBXNativeTarget "Maggol" */;
@@ -97,6 +154,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					D159F99F2D65F6370067FF78 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = D1B96B5E2D569A820007530C;
+					};
 					D1B96B5E2D569A820007530C = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -117,11 +178,19 @@
 			projectRoot = "";
 			targets = (
 				D1B96B5E2D569A820007530C /* Maggol */,
+				D159F99F2D65F6370067FF78 /* MaggolTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D159F99E2D65F6370067FF78 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1B96B5D2D569A820007530C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,6 +201,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D159F99C2D65F6370067FF78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1B96B5B2D569A820007530C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,7 +217,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D159F9A52D65F6370067FF78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D1B96B5E2D569A820007530C /* Maggol */;
+			targetProxy = D159F9A42D65F6370067FF78 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		D159F9A62D65F6370067FF78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.avans.mbdi.MaggolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Maggol.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Maggol";
+			};
+			name = Debug;
+		};
+		D159F9A72D65F6370067FF78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.avans.mbdi.MaggolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Maggol.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Maggol";
+			};
+			name = Release;
+		};
 		D1B96B6D2D569A830007530C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -320,6 +438,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D159F9A82D65F6370067FF78 /* Build configuration list for PBXNativeTarget "MaggolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D159F9A62D65F6370067FF78 /* Debug */,
+				D159F9A72D65F6370067FF78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D1B96B5A2D569A820007530C /* Build configuration list for PBXProject "Maggol" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
