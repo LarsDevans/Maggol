@@ -9,7 +9,7 @@ on:
 jobs:
   run-tests:
     name: "Run Xcode Unit Tests"
-    runs-on: macos-latest
+    runs-on: self-hosted
 
     steps:
       - name: "Checkout Repository"
