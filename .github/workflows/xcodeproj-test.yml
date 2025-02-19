@@ -1,0 +1,24 @@
+name: "Xcode Project Tests"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-tests:
+    name: "Run Xcode Unit Tests"
+    runs-on: macos-latest
+
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Run Xcode Tests"
+        uses: sersoft-gmbh/xcodebuild-action@v3
+        with:
+          project: Maggol.xcodeproj
+          scheme: MaggolTests
+          destination: platform=macOS
+          action: test
