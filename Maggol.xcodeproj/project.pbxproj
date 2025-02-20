@@ -25,8 +25,10 @@
 		D159F9B02D65F6AE0067FF78 /* Exceptions for "Maggol" folder in "MaggolTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Application/Features/Collection/Models/Card.swift,
 				"Application/Features/Feature A/Models/Dummy.swift",
 				Application/Services/DataService.swift,
+				Application/Services/MagicService.swift,
 			);
 			target = D159F99F2D65F6370067FF78 /* MaggolTests */;
 		};

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Identifiable {
-    let id = UUID()
+struct Card: Identifiable, Decodable {
+    let id: String
     let name: String
 }

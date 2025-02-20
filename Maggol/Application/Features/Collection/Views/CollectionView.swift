@@ -60,11 +60,11 @@ private extension CollectionView {
 
 #Preview("Populated state") {
     let cards: [Card] = [
-        .init(name: "Basri, Tomorrow's Champion"),
-        .init(name: "Brightfield Glider"),
-        .init(name: "Brightfield Mustang"),
-        .init(name: "Bulwark Ox"),
-        .init(name: "Canyon Vaulter")
+        .init(id: "1", name: "Basri, Tomorrow's Champion"),
+        .init(id: "2", name: "Brightfield Glider"),
+        .init(id: "3", name: "Brightfield Mustang"),
+        .init(id: "4", name: "Bulwark Ox"),
+        .init(id: "5", name: "Canyon Vaulter")
     ]
     let viewModel = CollectionViewModel(cards: cards)
     CollectionView(viewModel: viewModel)
