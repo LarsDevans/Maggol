@@ -7,7 +7,9 @@
 
 import Foundation
 
-final class CollectionViewModel {
+final class CollectionViewModel: ObservableObject {
+    @Published var isAddingCard: Bool = false
+    
     private(set) var cards: [Card]
     
     convenience init() {

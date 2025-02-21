@@ -10,4 +10,5 @@ import Foundation
 struct Card: Identifiable, Decodable {
     let id: String
     let name: String
+    let imageURL: String
 }
