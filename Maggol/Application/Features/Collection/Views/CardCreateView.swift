@@ -92,6 +92,7 @@ private extension CardCreateView {
     
     var cardSubmitAction: some View {
         Button(action: {
+            viewModel.submit()
             dismiss()
         }) {
             Text("Kaart toevoegen aan collectie")

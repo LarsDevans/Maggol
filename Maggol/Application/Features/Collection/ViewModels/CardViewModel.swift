@@ -25,6 +25,8 @@ final class CardViewModel: ObservableObject {
     @Published var addCardFoil: Bool = false
     @Published var fetchedCard: Card?
     
+    var delegate: FetchCardDelegate? = nil
+    
     private let magicService: MagicService
     
     init(
@@ -49,5 +51,10 @@ final class CardViewModel: ObservableObject {
         }
         
         fetchedCard = await magicService.fetchCard(set: addCardSetPrompt, number: addCardNumberPrompt)
+    }
+    
+    func submit() {
+        guard let card = fetchedCard else { return }
+        delegate?.update(with: card)
     }
 }

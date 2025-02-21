@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CollectionViewModel: ObservableObject {
+final class CollectionViewModel: ObservableObject, FetchCardDelegate {
     @Published var isAddingCard: Bool = false
     
     private(set) var cards: [Card]
@@ -18,5 +18,9 @@ final class CollectionViewModel: ObservableObject {
     
     init(cards: [Card]) {
         self.cards = cards
+    }
+    
+    func update(with card: Card) {
+        cards.append(card)
     }
 }

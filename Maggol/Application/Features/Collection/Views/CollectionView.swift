@@ -9,6 +9,14 @@ import SwiftUI
 
 struct CollectionView: View {
     @ObservedObject private(set) var viewModel: CollectionViewModel
+    private let cardViewModel: CardViewModel
+    
+    init(viewModel: CollectionViewModel) {
+        self.viewModel = viewModel
+        
+        cardViewModel = .init()
+        cardViewModel.delegate = viewModel
+    }
     
     var body: some View {
         NavigationView {
@@ -69,7 +77,7 @@ private extension CollectionView {
     }
     
     private var createCardSheet: some View {
-        CardCreateView(viewModel: CardViewModel())
+        CardCreateView(viewModel: cardViewModel)
             .presentationDragIndicator(.visible)
     }
 }
