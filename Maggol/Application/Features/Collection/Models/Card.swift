@@ -10,5 +10,11 @@ import Foundation
 struct Card: Identifiable, Decodable {
     let id: String
     let name: String
-    let imageURL: String
+    let imageURL: CardImage
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case imageURL = "image_uris"
+    }
 }

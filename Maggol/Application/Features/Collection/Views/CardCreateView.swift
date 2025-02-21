@@ -71,7 +71,7 @@ private extension CardCreateView {
     var populatedState: some View {
         Group {
             if let card = viewModel.fetchedCard {
-                AsyncImage(url: URL(string: card.imageURL)) { image in
+                AsyncImage(url: URL(string: card.imageURL.normal)) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -105,10 +105,13 @@ private extension CardCreateView {
 }
 
 #Preview("Populated state") {
+    let cardImage = CardImage(
+        normal: "https://cards.scryfall.io/normal/front/d/b/db80391f-1643-4b72-a397-d141bb5702ee.jpg?1696017328"
+    )
     let card = Card(
         id: "db80391f-1643-4b72-a397-d141bb5702ee",
         name: "The One Ring",
-        imageURL: "https://cards.scryfall.io/normal/front/d/b/db80391f-1643-4b72-a397-d141bb5702ee.jpg?1696017328"
+        imageURL: cardImage
     )
     let viewModel = CardViewModel(
         addCardSetPrompt: "LTR",

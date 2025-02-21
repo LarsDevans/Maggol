@@ -8,10 +8,24 @@
 import Foundation
 
 final class CardViewModel: ObservableObject {
-    @Published var addCardSetPrompt: String
-    @Published var addCardNumberPrompt: Int?
+    @Published var addCardSetPrompt: String {
+        didSet {
+            Task {
+                await fetchCard()
+            }
+        }
+    }
+    @Published var addCardNumberPrompt: Int? {
+        didSet {
+            Task {
+                await fetchCard()
+            }
+        }
+    }
     @Published var addCardFoil: Bool = false
     @Published var fetchedCard: Card?
+    
+    private let magicService: MagicService
     
     init(
         addCardSetPrompt: String = "",
@@ -23,5 +37,17 @@ final class CardViewModel: ObservableObject {
         self.addCardNumberPrompt = addCardNumberPrompt
         self.addCardFoil = addCardFoil
         self.fetchedCard = fetchedCard
+        
+        magicService = MagicService.shared
+    }
+    
+    @MainActor
+    func fetchCard() async {
+        guard let addCardNumberPrompt else {
+            fetchedCard = nil
+            return
+        }
+        
+        fetchedCard = await magicService.fetchCard(set: addCardSetPrompt, number: addCardNumberPrompt)
     }
 }
