@@ -15,7 +15,7 @@ struct CollectionView: View {
         self.viewModel = viewModel
         
         cardViewModel = .init()
-        cardViewModel.delegate = viewModel
+        cardViewModel.delegate = CardController.shared
     }
     
     var body: some View {
@@ -34,6 +34,11 @@ struct CollectionView: View {
                 createCardSheet
             }
             .navigationTitle("Collectie")
+        }
+        .onAppear {
+            Task {
+                await viewModel.cardController.loadFromMemory()
+            }
         }
     }
 }
@@ -125,7 +130,8 @@ private extension CollectionView {
             )
         )
     ]
-    let viewModel = CollectionViewModel(cards: cards)
+    let cardController = CardController(cards: cards)
+    let viewModel = CollectionViewModel(cardController: cardController)
     CollectionView(viewModel: viewModel)
 }
 

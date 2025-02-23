@@ -5,22 +5,28 @@
 //  Created by Lars Beijaard on 20/02/2025.
 //
 
+import Combine
 import Foundation
+import SwiftUI
 
-final class CollectionViewModel: ObservableObject, FetchCardDelegate {
+final class CollectionViewModel: ObservableObject {
     @Published var isAddingCard: Bool = false
-    
-    private(set) var cards: [Card]
+
+    @Published var cards: [Card] = []
+    @ObservedObject var cardController: CardController
+    private var cancellables = Set<AnyCancellable>()
     
     convenience init() {
-        self.init(cards: [])
+        self.init(cardController: CardController.shared)
     }
     
-    init(cards: [Card]) {
-        self.cards = cards
-    }
-    
-    func update(with card: Card) {
-        cards.append(card)
+    init(cardController: CardController) {
+        self.cardController = cardController
+        self.cardController.$cards
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] updated in
+                self?.cards = updated
+            }
+            .store(in: &cancellables)
     }
 }
