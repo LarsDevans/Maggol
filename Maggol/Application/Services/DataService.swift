@@ -22,9 +22,22 @@ final class DataService {
     private init(persistent: Bool = true) {
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: !persistent)
-            container = try ModelContainer(for: Dummy.self, configurations: config)
+            container = try ModelContainer(
+                for:
+                    Dummy.self,
+                    Card.self,
+                    CardImage.self,
+                configurations: config
+            )
         } catch {
             fatalError("Failed to initialize ModelContainer: \(error)")
+        }
+    }
+    
+    @MainActor
+    func save() async {
+        if container.mainContext.hasChanges {
+            try? container.mainContext.save()
         }
     }
 }
