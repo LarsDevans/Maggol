@@ -12,58 +12,124 @@ struct CardDetailView: View {
     
     var body: some View {
         ScrollView {
-            ZStack {
-                AsyncImage(url: URL(string: card.imageURL.artCrop)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .edgesIgnoringSafeArea(.all)
-                            .overlay(.black.opacity(0.3))
-                    } placeholder: {
-                        ProgressView()
-                    }
-                
-                VStack(alignment: .leading) {
-                    Spacer()
-
-                    HStack(alignment: .bottom) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(card.name)
-                                .bold()
-                                .foregroundStyle(.white)
-                            
-                            Text(card.typeLine)
-                                .foregroundStyle(.white.opacity(0.8))
-                                .font(.caption)
-                        }
-                        Spacer()
-                        HStack(spacing: 2) {
-                            Image(.cMana)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                            Image(.wMana)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                            Image(.bMana)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                            Image(.gMana)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                            Image(.uMana)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                            Image(.rMana)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                        }
-                    }
-                }
-                .padding()
-            }
+            headerSection
+            detailsSection
         }
         .navigationTitle(card.name)
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private extension CardDetailView {
+    @ViewBuilder
+    var headerSection: some View {
+        ZStack {
+            AsyncImage(url: URL(string: card.imageURL.artCrop)) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(maxWidth: .infinity, maxHeight: 250)
+                    .overlay(.black.opacity(0.3))
+                    .clipped()
+            } placeholder: {
+                ProgressView()
+            }
+            
+            VStack(alignment: .leading) {
+                Spacer()
+                
+                HStack(alignment: .bottom) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(card.name)
+                            .bold()
+                            .foregroundStyle(.white)
+                        
+                        Text(card.typeLine)
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.8))
+                    }
+                    Spacer()
+                    
+                    // Temp
+                    HStack(spacing: 2) {
+                        Image(.cMana)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Image(.wMana)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Image(.bMana)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Image(.gMana)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Image(.uMana)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Image(.rMana)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+    
+    var detailsSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            let descriptionLines = card.oracleText.components(separatedBy: "\n")
+            VStack(alignment: .leading) {
+                Text("Beschrijving")
+                    .bold()
+                VStack(alignment: .leading, spacing: 8) {
+                    ForEach(descriptionLines, id: \.self) { line in
+                        Text(line)
+                            .multilineTextAlignment(.leading)
+                    }
+                }
+            }
+            Divider()
+            SectionViewHorizontal(title: "Set", value: card.setName)
+            Divider()
+            SectionViewHorizontal(title: "Nummer", value: card.collectorNumber)
+            Divider()
+            SectionViewHorizontal(title: "Mana kosten", value: card.manaCost)
+            Divider()
+            SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
+            Divider()
+            SectionViewHorizontal(title: "Trefwoorden", value: card.keywords.joined(separator: ", "))
+        }
+        .padding()
+    }
+    
+    struct SectionViewVertical: View {
+        let title: String
+        let value: String
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .bold()
+                Text(value)
+            }
+        }
+    }
+    
+    struct SectionViewHorizontal: View {
+        let title: String
+        let value: String
+        
+        var body: some View {
+            HStack(alignment: .top, spacing: 4) {
+                Text(title)
+                    .bold()
+                Spacer()
+                Text(value)
+            }
+        }
     }
 }
 
