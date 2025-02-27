@@ -65,11 +65,10 @@ private extension CollectionView {
     
     private var populatedState: some View {
         ForEach(viewModel.cards) { card in
-            NavigationLink {
-                
-            } label: {
-                Text(card.name)
-            }
+            NavigationLink(
+                destination: CardDetailView(card: card)
+            ) { Text(card.name) }
+                .navigationTitle("Collectie")
         }
     }
     
