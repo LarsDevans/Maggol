@@ -105,7 +105,10 @@ private extension CollectionView {
             oracleText: "{W}, {T}, Exert Basri: Create a 1/1 white Cat creature token with lifelink. (An exerted creature won't untap during your next untap step.)\nCycling {2}{W} ({2}{W}, Discard this card: Draw a card.)\nWhen you cycle this card, Cats you control gain hexproof and indestructible until end of turn.",
             setName: "Aetherdrift",
             collectorNumber: "3",
-            rarity: "rare"
+            rarity: "rare",
+            keywords: [
+                "Cycling"
+            ]
         ),
         .init(
             id: "2",
@@ -119,7 +122,11 @@ private extension CollectionView {
             oracleText: "Vigilance\nWhenever this creature attacks while saddled, it gets +1/+2 and gains flying until end of turn.\nSaddle 3 (Tap any number of other creatures you control with total power 3 or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.)",
             setName: "Aetherdrift",
             collectorNumber: "4",
-            rarity: "common"
+            rarity: "common",
+            keywords: [
+                "Saddle",
+                "Vigilance"
+            ]
         ),
         .init(
             id: "3",
@@ -133,7 +140,10 @@ private extension CollectionView {
             oracleText: "Whenever this creature attacks while saddled, untap it and put a +1/+1 counter on it.\nSaddle 1 (Tap any number of other creatures you control with total power 1 or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.)",
             setName: "Aetherdrift",
             collectorNumber: "5",
-            rarity: "common"
+            rarity: "common",
+            keywords: [
+                "Saddle"
+            ]
         ),
         .init(
             id: "4",
@@ -147,7 +157,10 @@ private extension CollectionView {
             oracleText: "When this Vehicle enters, create a 1/1 colorless Thopter artifact creature token with flying.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
             setName: "Aetherdrift",
             collectorNumber: "6",
-            rarity: "common"
+            rarity: "common",
+            keywords: [
+                "Crew"
+            ]
         ),
         .init(
             id: "5",
@@ -161,7 +174,10 @@ private extension CollectionView {
             oracleText: "Whenever this creature attacks while saddled, put a +1/+1 counter on target creature.\nSacrifice this creature: Creatures you control with counters on them gain hexproof and indestructible until end of turn.\nSaddle 1 (Tap any number of other creatures you control with total power 1 or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.)",
             setName: "Aetherdrift",
             collectorNumber: "7",
-            rarity: "rare"
+            rarity: "rare",
+            keywords: [
+                "Saddle"
+            ]
         )
     ]
     let cardController = CardController(cards: cards)

@@ -19,6 +19,7 @@ final class Card: Identifiable, Decodable {
     var setName: String
     var collectorNumber: String
     var rarity: String
+    var keywords: [String]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -30,9 +31,10 @@ final class Card: Identifiable, Decodable {
         case setName = "set_name"
         case collectorNumber = "collector_number"
         case rarity
+        case keywords
     }
     
-    init(id: String, name: String, imageURL: CardImage, typeLine: String, manaCost: String, oracleText: String, setName: String, collectorNumber: String, rarity: String) {
+    init(id: String, name: String, imageURL: CardImage, typeLine: String, manaCost: String, oracleText: String, setName: String, collectorNumber: String, rarity: String, keywords: [String]) {
         self.id = id
         self.name = name
         self.imageURL = imageURL
@@ -42,6 +44,7 @@ final class Card: Identifiable, Decodable {
         self.setName = setName
         self.collectorNumber = collectorNumber
         self.rarity = rarity
+        self.keywords = keywords
     }
     
     required init(from decoder: Decoder) throws {
@@ -55,5 +58,6 @@ final class Card: Identifiable, Decodable {
         setName = try container.decode(String.self, forKey: .setName)
         collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         rarity = try container.decode(String.self, forKey: .rarity)
+        keywords = try container.decode([String].self, forKey: .keywords)
     }
 }
