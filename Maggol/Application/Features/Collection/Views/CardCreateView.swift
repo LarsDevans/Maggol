@@ -107,16 +107,18 @@ private extension CardCreateView {
 
 #Preview("Populated state") {
     let cardImage = CardImage(
-        normal: "https://cards.scryfall.io/normal/front/d/b/db80391f-1643-4b72-a397-d141bb5702ee.jpg?1696017328"
+        normal: "https://cards.scryfall.io/normal/front/d/b/db80391f-1643-4b72-a397-d141bb5702ee.jpg?1696017328",
+        artCrop: "https://cards.scryfall.io/art_crop/front/d/b/db80391f-1643-4b72-a397-d141bb5702ee.jpg?1696017328"
     )
     let card = Card(
         id: "db80391f-1643-4b72-a397-d141bb5702ee",
         name: "The One Ring",
-        imageURL: cardImage
+        imageURL: cardImage,
+        typeLine: "Legendary Artifact"
     )
     let viewModel = CardViewModel(
         addCardSetPrompt: "LTR",
-        addCardNumberPrompt: 295,
+        addCardNumberPrompt: 246,
         addCardFoil: true,
         fetchedCard: card
     )

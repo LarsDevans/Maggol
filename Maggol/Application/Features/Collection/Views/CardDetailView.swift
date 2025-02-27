@@ -12,18 +12,55 @@ struct CardDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .center) {
-                AsyncImage(url: URL(string: card.imageURL.normal)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(12)
-                        .shadow(radius: 5)
-                } placeholder: {
-                    ProgressView()
+            ZStack {
+                AsyncImage(url: URL(string: card.imageURL.artCrop)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .edgesIgnoringSafeArea(.all)
+                            .overlay(.black.opacity(0.3))
+                    } placeholder: {
+                        ProgressView()
+                    }
+                
+                VStack(alignment: .leading) {
+                    Spacer()
+
+                    HStack(alignment: .bottom) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(card.name)
+                                .bold()
+                                .foregroundStyle(.white)
+                            
+                            Text(card.typeLine)
+                                .foregroundStyle(.white.opacity(0.8))
+                                .font(.caption)
+                        }
+                        Spacer()
+                        HStack(spacing: 2) {
+                            Image(.cMana)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Image(.wMana)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Image(.bMana)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Image(.gMana)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Image(.uMana)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Image(.rMana)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        }
+                    }
                 }
+                .padding()
             }
-            .padding()
         }
         .navigationTitle(card.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -32,12 +69,14 @@ struct CardDetailView: View {
 
 #Preview {
     let cardImage = CardImage(
-        normal: "https://cards.scryfall.io/normal/front/d/b/db80391f-1643-4b72-a397-d141bb5702ee.jpg?1696017328"
+        normal: "https://cards.scryfall.io/normal/front/c/f/cf3320ec-c4e8-405a-982d-e009c58c9e21.jpg?1721426449",
+        artCrop: "https://cards.scryfall.io/art_crop/front/c/f/cf3320ec-c4e8-405a-982d-e009c58c9e21.jpg?1721426449"
     )
     let card = Card(
         id: "db80391f-1643-4b72-a397-d141bb5702ee",
         name: "The One Ring",
-        imageURL: cardImage
+        imageURL: cardImage,
+        typeLine: "Legendary Artifact"
     )
     
     CardDetailView(card: card)
