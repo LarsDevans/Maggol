@@ -76,7 +76,12 @@ struct CardDetailView: View {
         id: "db80391f-1643-4b72-a397-d141bb5702ee",
         name: "The One Ring",
         imageURL: cardImage,
-        typeLine: "Legendary Artifact"
+        typeLine: "Legendary Artifact",
+        manaCost: "{4}",
+        oracleText: "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring.",
+        setName: "The Lord of the Rings: Tales of Middle-earth",
+        collectorNumber: "246",
+        rarity: "mythic"
     )
     
     CardDetailView(card: card)
