@@ -26,4 +26,18 @@ final class MagicService {
             return nil
         }
     }
+    
+    func fetchAllManaSymbols() async -> [String: CardSymbol] {
+        let rawURL = "\(rawBaseURL)/symbology"
+        guard let url = URL(string: rawURL) else { return [:] }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let response = try JSONDecoder().decode(SymbolListResponse.self, from: data)
+            return Dictionary(uniqueKeysWithValues: response.data.map { ($0.symbol, $0) })
+        } catch {
+            print("Error fetching mana symbols: \(error)")
+            return [:]
+        }
+    }
 }
