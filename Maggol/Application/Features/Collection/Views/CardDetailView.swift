@@ -10,13 +10,13 @@ import SwiftUI
 struct CardDetailView: View {
     let cardViewModel: CardViewModel
     let card: Card
-    var manaSymbolUri: [String]
+    var manaSymbolUris: [String]
     
-    init(cardViewModel: CardViewModel, card: Card) {
+    init(cardViewModel: CardViewModel, card: Card, manaSymbolUris: [String]? = nil) {
         self.cardViewModel = cardViewModel
         self.card = card
         
-        manaSymbolUri = cardViewModel.translateManaCostToImage(manaCost: card.manaCost)
+        self.manaSymbolUris = manaSymbolUris ?? cardViewModel.translateManaCostToImage(manaCost: card.manaCost)
     }
     
     var body: some View {
@@ -61,8 +61,8 @@ private extension CardDetailView {
                     Spacer()
                     
                     HStack(spacing: 2) {
-                        ForEach(manaSymbolUri.indices, id: \.self) { index in
-                            if let url = URL(string: manaSymbolUri[index]) {
+                        ForEach(manaSymbolUris.indices, id: \.self) { index in
+                            if let url = URL(string: manaSymbolUris[index]) {
                                 SVGImage(url: url, size: CGSize(width: 20, height: 20))
                             }
                         }
@@ -146,5 +146,11 @@ private extension CardDetailView {
         ]
     )
     
-    CardDetailView(cardViewModel: CardViewModel(), card: card)
+    let manaSymbolUris = [
+        "https://svgs.scryfall.io/card-symbols/3.svg",
+        "https://svgs.scryfall.io/card-symbols/B.svg",
+        "https://svgs.scryfall.io/card-symbols/B.svg"
+    ]
+    
+    CardDetailView(cardViewModel: CardViewModel(), card: card, manaSymbolUris: manaSymbolUris)
 }
