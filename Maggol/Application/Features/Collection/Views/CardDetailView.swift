@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct CardDetailView: View {
+    let cardViewModel: CardViewModel
     let card: Card
+    var manaSymbolUri: [String]
+    
+    init(cardViewModel: CardViewModel, card: Card) {
+        self.cardViewModel = cardViewModel
+        self.card = card
+        
+        manaSymbolUri = cardViewModel.translateManaCostToImage(manaCost: card.manaCost)
+    }
     
     var body: some View {
         ScrollView {
@@ -51,26 +60,12 @@ private extension CardDetailView {
                     }
                     Spacer()
                     
-                    // Temp
                     HStack(spacing: 2) {
-                        Image(.cMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.wMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.bMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.gMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.uMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.rMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
+                        ForEach(manaSymbolUri.indices, id: \.self) { index in
+                            if let url = URL(string: manaSymbolUri[index]) {
+                                SVGImage(url: url, size: CGSize(width: 20, height: 20))
+                            }
+                        }
                     }
                 }
             }
@@ -95,8 +90,6 @@ private extension CardDetailView {
             SectionViewHorizontal(title: "Set", value: card.setName)
             Divider()
             SectionViewHorizontal(title: "Nummer", value: card.collectorNumber)
-            Divider()
-            SectionViewHorizontal(title: "Mana kosten", value: card.manaCost)
             Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
             Divider()
@@ -153,5 +146,5 @@ private extension CardDetailView {
         ]
     )
     
-    CardDetailView(card: card)
+    CardDetailView(cardViewModel: CardViewModel(), card: card)
 }
