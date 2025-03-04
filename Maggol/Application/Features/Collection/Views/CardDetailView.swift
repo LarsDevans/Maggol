@@ -93,7 +93,7 @@ private extension CardDetailView {
             Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
             Divider()
-            SectionViewHorizontal(title: "Trefwoorden", value: card.keywords.joined(separator: ", "))
+            SectionViewHorizontal(title: "Trefwoorden", value: card.keywordStrings.joined(separator: ", "))
         }
         .padding()
     }
