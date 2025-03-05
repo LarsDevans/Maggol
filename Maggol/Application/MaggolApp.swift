@@ -25,7 +25,7 @@ struct MaggolApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CollectionView(viewModel: CollectionViewModel())
         }
         .modelContainer(sharedModelContainer)
     }

@@ -9,6 +9,15 @@ import SwiftUI
 
 struct CardDetailView: View {
     let card: Card
+    let cardViewModel: CardViewModel
+    let manaCostImages: [Image]
+    
+    init(card: Card, cardViewModel: CardViewModel) {
+        self.card = card
+        self.cardViewModel = cardViewModel
+        
+        self.manaCostImages = cardViewModel.translateManaCost(manaCost: card.manaCost)
+    }
     
     var body: some View {
         ScrollView {
@@ -51,26 +60,12 @@ private extension CardDetailView {
                     }
                     Spacer()
                     
-                    // Temp
                     HStack(spacing: 2) {
-                        Image(.cMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.wMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.bMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.gMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.uMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Image(.rMana)
-                            .resizable()
-                            .frame(width: 20, height: 20)
+                        ForEach(manaCostImages.indices, id: \.self) { index in
+                            manaCostImages[index]
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        }
                     }
                 }
             }
@@ -153,5 +148,5 @@ private extension CardDetailView {
         ]
     )
     
-    CardDetailView(card: card)
+    CardDetailView(card: card, cardViewModel: CardViewModel())
 }

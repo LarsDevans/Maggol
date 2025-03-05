@@ -74,7 +74,7 @@ private extension CollectionView {
     private var populatedState: some View {
         ForEach(viewModel.filteredCards) { card in
             NavigationLink(
-                destination: CardDetailView(card: card)
+                destination: CardDetailView(card: card, cardViewModel: cardViewModel)
             ) { Text(card.name) }
                 .navigationTitle("Collectie")
         }
