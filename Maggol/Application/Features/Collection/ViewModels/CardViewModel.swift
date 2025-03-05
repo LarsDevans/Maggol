@@ -58,7 +58,7 @@ final class CardViewModel: ObservableObject {
     
     func translateManaCost(manaCost: String) -> [Image] {
         let result = manaSymbolConverter.convertManaCost(manaCost: manaCost)
-        return result
+        return result.compactMap { $0 }
     }
     
     func submit() {

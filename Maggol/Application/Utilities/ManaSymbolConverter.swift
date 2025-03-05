@@ -8,39 +8,32 @@
 import Foundation
 import SwiftUI
 
+enum ManaSymbol: String, CaseIterable {
+    case B, G, C, R, T, U, W, one = "1", two = "2", three = "3", four = "4", five = "5", six = "6", seven = "7", eight = "8", nine = "9", ten = "10"
+    
+    static private let imageMap: [ManaSymbol: Image] = [
+        .one: Image(._1), .two: Image(._2), .three: Image(._3), .four: Image(._4),
+        .five: Image(._5), .six: Image(._6), .seven: Image(._7), .eight: Image(._8),
+        .nine: Image(._9), .ten: Image(._10), .B: Image(.B), .G: Image(.G),
+        .C: Image(.C), .R: Image(.R), .T: Image(.T), .U: Image(.U), .W: Image(.W)
+    ]
+    
+    var image: Image {
+        return Self.imageMap[self]!
+    }
+}
+
 class ManaSymbolConverter {
-    func convertManaCost(manaCost: String) -> [Image] {
+    func convertManaCost(manaCost: String) -> [Image?] {
         let pattern = /\{([A-Z0-9]+)\}/
-        var images: [Image] = []
-        for match in manaCost.matches(of: pattern) {
-            let symbol = match.1
-            switch String(symbol) {
-            case "B":
-                images.append(Image(.B))
-            case "G":
-                images.append(Image(.G))
-            case "C":
-                images.append(Image(.C))
-            case "R":
-                images.append(Image(.R))
-            case "T":
-                images.append(Image(.T))
-            case "U":
-                images.append(Image(.U))
-            case "W":
-                images.append(Image(.W))
-            case "1":
-                images.append(Image(._1))
-            case "2":
-                images.append(Image(._2))
-            case "3":
-                images.append(Image(._3))
-            case "4":
-                images.append(Image(._4))
-            default:
-                continue
+        var images: [Image?] = []
+        images = Array(manaCost.matches(of: pattern))
+            .map { match in
+                guard let symbol = ManaSymbol(rawValue: String(match.1)) else {
+                    return nil
+                }
+                return symbol.image
             }
-        }
         return images
     }
 }
