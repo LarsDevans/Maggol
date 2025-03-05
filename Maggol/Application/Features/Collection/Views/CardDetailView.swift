@@ -53,9 +53,9 @@ private extension CardDetailView {
                         Text(card.name)
                             .bold()
                             .foregroundStyle(.white)
+                            .font(.title)
                         
                         Text(card.typeLine)
-                            .font(.caption)
                             .foregroundStyle(.white.opacity(0.8))
                     }
                     Spacer()
