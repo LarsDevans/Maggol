@@ -8,6 +8,14 @@
 import Foundation
 import SwiftData
 
+struct Keyword: Codable {
+    let value: String
+    
+    init(_ value: String) {
+        self.value = value
+    }
+}
+
 @Model
 final class Card: Identifiable, Decodable {
     var id: String
@@ -19,7 +27,12 @@ final class Card: Identifiable, Decodable {
     var setName: String
     var collectorNumber: String
     var rarity: String
-    var keywords: [String]
+    var keywords: [Keyword]
+    
+    var keywordStrings: [String] {
+        get { keywords.map(\.value) }
+        set { keywords = newValue.map(Keyword.init) }
+    }
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -44,7 +57,7 @@ final class Card: Identifiable, Decodable {
         self.setName = setName
         self.collectorNumber = collectorNumber
         self.rarity = rarity
-        self.keywords = keywords
+        self.keywords = keywords.map(Keyword.init)
     }
     
     required init(from decoder: Decoder) throws {
@@ -58,6 +71,7 @@ final class Card: Identifiable, Decodable {
         setName = try container.decode(String.self, forKey: .setName)
         collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         rarity = try container.decode(String.self, forKey: .rarity)
-        keywords = try container.decode([String].self, forKey: .keywords)
+        let keywordStrings = try container.decode([String].self, forKey: .keywords)
+        self.keywords = keywordStrings.map(Keyword.init)
     }
 }
