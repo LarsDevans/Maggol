@@ -11,10 +11,21 @@ import SwiftUI
 
 final class CollectionViewModel: ObservableObject {
     @Published var isAddingCard: Bool = false
+    @Published var searchQuery: String = ""
 
     @Published var cards: [Card] = []
     @ObservedObject var cardController: CardController
     private var cancellables = Set<AnyCancellable>()
+    
+    var filteredCards: [Card] {
+        if searchQuery.isEmpty {
+            return cards
+        }
+
+        return cards.filter {
+            $0.name.lowercased().contains(searchQuery.lowercased())
+        }
+    }
     
     convenience init() {
         self.init(cardController: CardController.shared)

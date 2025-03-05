@@ -25,6 +25,10 @@ struct CollectionView: View {
                     stateContent
                 }
             }
+            .searchable(
+                text: $viewModel.searchQuery,
+                prompt: "Zoek naar een kaart"
+            )
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     toolbarToggleSheetAction
@@ -51,7 +55,11 @@ private extension CollectionView {
         if viewModel.cards.isEmpty {
             emptyState
         } else {
-            populatedState
+            if viewModel.filteredCards.isEmpty {
+                searchEmptyState
+            } else {
+                populatedState
+            }
         }
     }
     
@@ -64,11 +72,19 @@ private extension CollectionView {
     }
     
     private var populatedState: some View {
-        ForEach(viewModel.cards) { card in
+        ForEach(viewModel.filteredCards) { card in
             NavigationLink(
                 destination: CardDetailView(card: card)
             ) { Text(card.name) }
                 .navigationTitle("Collectie")
+        }
+    }
+    
+    private var searchEmptyState: some View {
+        ContentUnavailableView {
+            Label("Geen kaarten gevonden", systemImage: "magnifyingglass")
+        } description: {
+            Text("Zorg dat de kaart in je collectie zit of controleer de zoekopdracht!")
         }
     }
     
