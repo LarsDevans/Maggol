@@ -91,8 +91,6 @@ private extension CardDetailView {
             Divider()
             SectionViewHorizontal(title: "Nummer", value: card.collectorNumber)
             Divider()
-            SectionViewHorizontal(title: "Mana kosten", value: card.manaCost)
-            Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
             Divider()
             SectionViewHorizontal(title: "Trefwoorden", value: card.keywordStrings.joined(separator: ", "))
