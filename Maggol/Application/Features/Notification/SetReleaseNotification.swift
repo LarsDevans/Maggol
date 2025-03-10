@@ -25,7 +25,7 @@ private extension SetReleaseNotification {
         let release: String
         let year: Int
         let month: Int
-        let weekday: Int
+        let day: Int
         
         // Primarily used for debugging purposes
         let hour: Int?
@@ -55,7 +55,7 @@ private extension SetReleaseNotification {
             calendar: Calendar.current,
             year: model.year,
             month: model.month,
-            weekday: model.weekday
+            day: model.day
         )
         dateComponents.hour = model.hour ?? 0
         dateComponents.minute = model.minute ?? 0
