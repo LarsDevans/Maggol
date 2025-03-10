@@ -15,7 +15,6 @@ struct CardDetailView: View {
     init(card: Card, cardViewModel: CardViewModel) {
         self.card = card
         self.cardViewModel = cardViewModel
-        
         self.manaCostImages = cardViewModel.translateManaCost(manaCost: card.manaCost)
     }
     
@@ -29,84 +28,111 @@ struct CardDetailView: View {
     }
 }
 
+// MARK: - Header Section
 private extension CardDetailView {
-    @ViewBuilder
     var headerSection: some View {
         ZStack {
-            AsyncImage(url: URL(string: card.imageURL.artCrop)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(maxWidth: .infinity, maxHeight: 250)
-                    .overlay(.black.opacity(0.3))
-                    .clipped()
-            } placeholder: {
-                ProgressView()
-            }
+            cardImage
             
             VStack(alignment: .leading) {
                 Spacer()
-                
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(card.name)
-                            .bold()
-                            .foregroundStyle(.white)
-                            .font(.title)
-                        
-                        Text(card.typeLine)
-                            .foregroundStyle(.white.opacity(0.8))
-                    }
-                    Spacer()
-                    
-                    HStack(spacing: 2) {
-                        ForEach(manaCostImages.indices, id: \.self) { index in
-                            manaCostImages[index]
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                        }
-                    }
-                }
+                cardInfoOverlay
             }
             .padding()
         }
     }
     
+    var cardImage: some View {
+        AsyncImage(url: URL(string: card.imageURL.artCrop)) { image in
+            image
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
+                .frame(maxWidth: .infinity, maxHeight: 250)
+                .overlay(.black.opacity(0.3))
+                .clipped()
+        } placeholder: {
+            ProgressView()
+        }
+    }
+    
+    var cardInfoOverlay: some View {
+        HStack(alignment: .bottom) {
+            cardOverlayMeta
+            Spacer()
+            cardOverlayMana
+        }
+    }
+    
+    var cardOverlayMeta: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(card.name)
+                .bold()
+                .foregroundStyle(.white)
+                .font(.title)
+            
+            Text(card.typeLine)
+                .foregroundStyle(.white.opacity(0.8))
+        }
+    }
+    
+    var cardOverlayMana: some View {
+        HStack(spacing: 2) {
+            ForEach(manaCostImages.indices, id: \.self) { index in
+                manaCostImages[index]
+                    .resizable()
+                    .frame(width: 20, height: 20)
+            }
+        }
+    }
+}
+
+// MARK: - Details Section
+private extension CardDetailView {
     var detailsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            let descriptionLines = card.oracleText.components(separatedBy: "\n")
-            VStack(alignment: .leading) {
-                Text("Beschrijving")
-                    .bold()
-                VStack(alignment: .leading, spacing: 8) {
-                    ForEach(descriptionLines, id: \.self) { line in
-                        Text(line)
-                            .multilineTextAlignment(.leading)
-                    }
-                }
-            }
+            cardDescriptionSection
             Divider()
+            metadataSections
+        }
+        .padding()
+    }
+    
+    var cardDescriptionSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Beschrijving")
+                .bold()
+            ForEach(card.oracleText.components(separatedBy: "\n"), id: \.self) { line in
+                Text(line)
+                    .multilineTextAlignment(.leading)
+            }
+        }
+    }
+    
+    var metadataSections: some View {
+        VStack(alignment: .leading, spacing: 8) {
             SectionViewHorizontal(title: "Set", value: card.setName)
             Divider()
             SectionViewHorizontal(title: "Nummer", value: card.collectorNumber)
             Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
             Divider()
-            SectionViewHorizontal(title: "Trefwoorden", value: card.keywordStrings.joined(separator: ", "))
+            keywordsSection
         }
-        .padding()
     }
     
-    struct SectionViewVertical: View {
-        let title: String
-        let value: String
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .bold()
-                Text(value)
+    var keywordsSection: some View {
+        Group {
+            if !card.keywordStrings.isEmpty {
+                SectionViewHorizontal(title: "Trefwoorden",
+                                      value: card.keywordStrings.joined(separator: ", "))
+            } else {
+                HStack(alignment: .top, spacing: 4) {
+                    Text("Trefwoorden")
+                        .bold()
+                    Spacer()
+                    Text("Geen trefwoorden").italic()
+                }
             }
         }
     }
