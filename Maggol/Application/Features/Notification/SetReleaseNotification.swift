@@ -9,8 +9,18 @@ import Foundation
 import UserNotifications
 
 final class SetReleaseNotification {
-    
-    private struct NotificationModel: Decodable {
+    func activate() {
+        Task {
+            let notifications = await fetchNotifications()
+            for notification in notifications ?? [] {
+                await scheduleNotification(for: notification)
+            }
+        }
+    }
+}
+
+private extension SetReleaseNotification {
+    struct NotificationModel: Decodable {
         let name: String
         let release: String
         let year: Int
@@ -23,16 +33,7 @@ final class SetReleaseNotification {
         let second: Int?
     }
     
-    func activate() {
-        Task {
-            let notifications = await fetchNotifications()
-            for notification in notifications ?? [] {
-                await scheduleNotification(for: notification)
-            }
-        }
-    }
-    
-    private func fetchNotifications() async -> [NotificationModel]? {
+    func fetchNotifications() async -> [NotificationModel]? {
         let rawURL = "https://maggol-events.serverjoris.nl/events"
         guard let url = URL(string: rawURL) else { return nil }
         
@@ -45,7 +46,7 @@ final class SetReleaseNotification {
         }
     }
     
-    private func scheduleNotification(for model: NotificationModel) async {
+    func scheduleNotification(for model: NotificationModel) async {
         let content = UNMutableNotificationContent()
         content.title = "Nieuw: \(model.name)"
         content.body = "Aangekondigd voor release op \(model.release)"

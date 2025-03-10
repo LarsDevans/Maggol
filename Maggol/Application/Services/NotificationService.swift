@@ -16,8 +16,10 @@ final class NotificationService {
             await askNotificationAuthorization()
         }
     }
-    
-    private func askNotificationAuthorization() async {
+}
+
+private extension NotificationService {
+    func askNotificationAuthorization() async {
         do {
             if try await center.requestAuthorization(
                 options: [.alert, .sound, .badge, .provisional]
@@ -29,7 +31,7 @@ final class NotificationService {
         }
     }
     
-    private func activateNotificationService() {
+    func activateNotificationService() {
         SetReleaseNotification().activate()
     }
 }
