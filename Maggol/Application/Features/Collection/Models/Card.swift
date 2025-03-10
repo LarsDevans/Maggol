@@ -80,7 +80,7 @@ final class Card: Identifiable, Decodable {
         self.keywords = keywordStrings.map(Keyword.init)
     }
     
-    private struct Keyword: Decodable {
+    private struct Keyword: Codable {
         let value: String
         
         init(_ value: String) {
