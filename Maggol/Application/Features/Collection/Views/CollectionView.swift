@@ -110,7 +110,7 @@ private extension CollectionView {
 #Preview("Populated state") {
     let cards: [Card] = [
         .init(
-            id: "1",
+            id  : "1",
             name: "Basri, Tomorrow's Champion",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/9/9/991270fa-a391-4c2e-bd9a-19151386fb67.jpg?1738356108",
