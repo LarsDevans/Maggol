@@ -22,6 +22,10 @@ struct MaggolApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    init() {
+        NotificationService().activate()
+    }
 
     var body: some Scene {
         WindowGroup {
