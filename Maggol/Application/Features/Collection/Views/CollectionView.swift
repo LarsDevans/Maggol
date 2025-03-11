@@ -73,11 +73,10 @@ private extension CollectionView {
     
     private var populatedState: some View {
         ForEach(viewModel.filteredCards) { card in
-            NavigationLink {
-                
-            } label: {
-                Text(card.name)
-            }
+            NavigationLink(
+                destination: CardDetailView(card: card, cardViewModel: cardViewModel)
+            ) { Text(card.name) }
+                .navigationTitle("Collectie")
         }
     }
     
@@ -111,39 +110,90 @@ private extension CollectionView {
 #Preview("Populated state") {
     let cards: [Card] = [
         .init(
-            id: "1",
+            id  : "1",
             name: "Basri, Tomorrow's Champion",
             imageURL: CardImage(
-                normal: "https://cards.scryfall.io/normal/front/9/9/991270fa-a391-4c2e-bd9a-19151386fb67.jpg?1738356108"
-            )
+                normal: "https://cards.scryfall.io/normal/front/9/9/991270fa-a391-4c2e-bd9a-19151386fb67.jpg?1738356108",
+                artCrop: "https://cards.scryfall.io/art_crop/front/9/9/991270fa-a391-4c2e-bd9a-19151386fb67.jpg?1738356108"
+            ),
+            typeLine: "Legendary Creature — Human Knight",
+            manaCost: "{W}",
+            oracleText: "{W}, {T}, Exert Basri: Create a 1/1 white Cat creature token with lifelink. (An exerted creature won't untap during your next untap step.)\nCycling {2}{W} ({2}{W}, Discard this card: Draw a card.)\nWhen you cycle this card, Cats you control gain hexproof and indestructible until end of turn.",
+            setName: "Aetherdrift",
+            collectorNumber: "3",
+            rarity: "rare",
+            keywords: [
+                "Cycling"
+            ]
         ),
         .init(
             id: "2",
             name: "Brightfield Glider",
             imageURL: CardImage(
-                normal: "https://cards.scryfall.io/normal/front/7/e/7eb819eb-ba5c-4449-87b5-3894380558bc.jpg?1738356111"
-            )
+                normal: "https://cards.scryfall.io/normal/front/7/e/7eb819eb-ba5c-4449-87b5-3894380558bc.jpg?1738356111",
+                artCrop:  "https://cards.scryfall.io/art_crop/front/7/e/7eb819eb-ba5c-4449-87b5-3894380558bc.jpg?1738356111"
+            ),
+            typeLine: "Creature — Possum Mount",
+            manaCost: "{W}",
+            oracleText: "Vigilance\nWhenever this creature attacks while saddled, it gets +1/+2 and gains flying until end of turn.\nSaddle 3 (Tap any number of other creatures you control with total power 3 or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.)",
+            setName: "Aetherdrift",
+            collectorNumber: "4",
+            rarity: "common",
+            keywords: [
+                "Saddle",
+                "Vigilance"
+            ]
         ),
         .init(
             id: "3",
             name: "Brightfield Mustang",
             imageURL: CardImage(
-                normal: "https://cards.scryfall.io/normal/front/b/2/b2c7cacc-f15e-46c1-9c25-b567bb3e8680.jpg?1738356112"
-            )
+                normal: "https://cards.scryfall.io/normal/front/b/2/b2c7cacc-f15e-46c1-9c25-b567bb3e8680.jpg?1738356112",
+                artCrop:  "https://cards.scryfall.io/art_crop/front/b/2/b2c7cacc-f15e-46c1-9c25-b567bb3e8680.jpg?1738356112"
+            ),
+            typeLine: "Creature — Horse Mount",
+            manaCost: "{3}{W}",
+            oracleText: "Whenever this creature attacks while saddled, untap it and put a +1/+1 counter on it.\nSaddle 1 (Tap any number of other creatures you control with total power 1 or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.)",
+            setName: "Aetherdrift",
+            collectorNumber: "5",
+            rarity: "common",
+            keywords: [
+                "Saddle"
+            ]
         ),
         .init(
             id: "4",
             name: "Bulwark Ox",
             imageURL: CardImage(
-                normal: "https://cards.scryfall.io/normal/front/1/0/106944b2-f3ae-4350-be33-61b9f92fc92f.jpg?1738356118"
-            )
+                normal: "https://cards.scryfall.io/normal/front/1/0/106944b2-f3ae-4350-be33-61b9f92fc92f.jpg?1738356118",
+                artCrop:  "https://cards.scryfall.io/art_crop/front/1/0/106944b2-f3ae-4350-be33-61b9f92fc92f.jpg?1738356118"
+            ),
+            typeLine: "Artifact — Vehicle",
+            manaCost: "{4}{W}",
+            oracleText: "When this Vehicle enters, create a 1/1 colorless Thopter artifact creature token with flying.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
+            setName: "Aetherdrift",
+            collectorNumber: "6",
+            rarity: "common",
+            keywords: [
+                "Crew"
+            ]
         ),
         .init(
             id: "5",
             name: "Canyon Vaulter",
             imageURL: CardImage(
-                normal: "https://cards.scryfall.io/normal/front/c/c/cc0b15da-a45c-42f5-aafc-20ad9e38bf24.jpg?1738356122"
-            )
+                normal: "https://cards.scryfall.io/normal/front/c/c/cc0b15da-a45c-42f5-aafc-20ad9e38bf24.jpg?1738356122",
+                artCrop:  "https://cards.scryfall.io/art_crop/front/c/c/cc0b15da-a45c-42f5-aafc-20ad9e38bf24.jpg?1738356122"
+            ),
+            typeLine: "Creature — Ox Mount",
+            manaCost: "{1}{W}",
+            oracleText: "Whenever this creature attacks while saddled, put a +1/+1 counter on target creature.\nSacrifice this creature: Creatures you control with counters on them gain hexproof and indestructible until end of turn.\nSaddle 1 (Tap any number of other creatures you control with total power 1 or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.)",
+            setName: "Aetherdrift",
+            collectorNumber: "7",
+            rarity: "rare",
+            keywords: [
+                "Saddle"
+            ]
         )
     ]
     let cardController = CardController(cards: cards)
