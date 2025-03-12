@@ -10,12 +10,12 @@ import SwiftUI
 struct CardDetailView: View {
     let card: Card
     let cardViewModel: CardViewModel
-    let manaCostImages: [Image?]
+    let manaCostImages: [Image]
     
     init(card: Card, cardViewModel: CardViewModel) {
         self.card = card
         self.cardViewModel = cardViewModel
-        self.manaCostImages = ManaSymbol.asImageSerie(manaCost: card.manaCost)
+        self.manaCostImages = cardViewModel.translateManaCost(manaCost: card.manaCost)
     }
     
     var body: some View {
@@ -79,7 +79,7 @@ private extension CardDetailView {
     var cardOverlayMana: some View {
         HStack(spacing: 2) {
             ForEach(manaCostImages.indices, id: \.self) { index in
-                manaCostImages[index]?
+                manaCostImages[index]
                     .resizable()
                     .frame(width: 20, height: 20)
             }

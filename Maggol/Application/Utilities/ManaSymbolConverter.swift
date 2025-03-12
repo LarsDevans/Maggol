@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 enum ManaSymbol: String, CaseIterable {
-    case B, G, C, R, T, U, W, 
+    case B, G, C, R, T, U, W, X,
          one = "1",
          two = "2",
          three = "3",
@@ -38,7 +38,8 @@ enum ManaSymbol: String, CaseIterable {
         .R: Image(.R),
         .T: Image(.T),
         .U: Image(.U),
-        .W: Image(.W)
+        .W: Image(.W),
+        .X: Image(.X)
     ]
     
     var image: Image {

@@ -54,6 +54,11 @@ final class CardViewModel: ObservableObject {
         fetchedCard = await magicService.fetchCard(set: addCardSetPrompt, number: addCardNumberPrompt)
     }
     
+    func translateManaCost(manaCost: String) -> [Image] {
+        let result = ManaSymbol.asImageSerie(manaCost: manaCost)
+        return result.compactMap { $0 }
+    }
+    
     func submit() {
         guard let card = fetchedCard else { return }
         delegate?.update(with: card)
