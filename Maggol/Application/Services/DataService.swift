@@ -24,7 +24,6 @@ final class DataService {
             let config = ModelConfiguration(isStoredInMemoryOnly: !persistent)
             container = try ModelContainer(
                 for:
-                    Dummy.self,
                     Card.self,
                     CardImage.self,
                 configurations: config
