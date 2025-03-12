@@ -26,22 +26,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Application/Features/Collection/Models/Card.swift,
-				"Application/Features/Feature A/Models/Dummy.swift",
 				Application/Services/DataService.swift,
 				Application/Services/MagicService.swift,
 			);
 			target = D159F99F2D65F6370067FF78 /* MaggolTests */;
-		};
-		D1DFEEE22D56A2CA00AEB0DA /* Exceptions for "Maggol" folder in "Maggol" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Application/Features/Feature A/Models/.gitkeep",
-				"Application/Features/Feature A/ViewModels/.gitkeep",
-				"Application/Features/Feature A/Views/.gitkeep",
-				Application/Services/.gitkeep,
-				Application/Utilities/.gitkeep,
-			);
-			target = D1B96B5E2D569A820007530C /* Maggol */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -54,7 +42,6 @@
 		D1B96B612D569A820007530C /* Maggol */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D1DFEEE22D56A2CA00AEB0DA /* Exceptions for "Maggol" folder in "Maggol" target */,
 				D159F9B02D65F6AE0067FF78 /* Exceptions for "Maggol" folder in "MaggolTests" target */,
 			);
 			path = Maggol;
