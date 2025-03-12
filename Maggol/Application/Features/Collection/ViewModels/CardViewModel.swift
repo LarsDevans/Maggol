@@ -29,7 +29,6 @@ final class CardViewModel: ObservableObject {
     var delegate: FetchCardDelegate? = nil
     
     private let magicService: MagicService
-    private let manaSymbolConverter: ManaSymbolConverter
     
     init(
         addCardSetPrompt: String = "",
@@ -43,7 +42,6 @@ final class CardViewModel: ObservableObject {
         self.fetchedCard = fetchedCard
         
         magicService = MagicService.shared
-        manaSymbolConverter = ManaSymbolConverter()
     }
     
     @MainActor
@@ -57,7 +55,7 @@ final class CardViewModel: ObservableObject {
     }
     
     func translateManaCost(manaCost: String) -> [Image] {
-        let result = manaSymbolConverter.convertManaCost(manaCost: manaCost)
+        let result = ManaSymbol.asImageSerie(manaCost: manaCost)
         return result.compactMap { $0 }
     }
     

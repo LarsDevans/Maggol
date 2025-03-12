@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 enum ManaSymbol: String, CaseIterable {
-    case B, G, C, R, T, U, W, 
+    case B, G, C, R, T, U, W, X,
          one = "1",
          two = "2",
          three = "3",
@@ -38,23 +38,20 @@ enum ManaSymbol: String, CaseIterable {
         .R: Image(.R),
         .T: Image(.T),
         .U: Image(.U),
-        .W: Image(.W)
+        .W: Image(.W),
+        .X: Image(.X)
     ]
     
     var image: Image {
         return Self.imageMap[self]!
     }
-}
-
-class ManaSymbolConverter {
-    func convertManaCost(manaCost: String) -> [Image?] {
+    
+    static func asImageSerie(manaCost: String) -> [Image?] {
         let pattern = /\{([A-Z0-9]+)\}/
-        var images: [Image?] = []
-        images = Array(manaCost.matches(of: pattern))
-            .map { match in
-                guard let symbol = ManaSymbol(rawValue: String(match.1)) else { return nil }
-                return symbol.image
-            }
+        let images = manaCost.matches(of: pattern).compactMap { match -> Image? in
+            guard let symbol = ManaSymbol(rawValue: String(match.1)) else { return nil }
+            return symbol.image
+        }
         return images
     }
 }
