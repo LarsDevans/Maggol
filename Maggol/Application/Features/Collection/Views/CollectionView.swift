@@ -130,7 +130,7 @@ private extension CollectionView {
                 "Cycling"
             ],
             foil: true,
-            amount: 0
+            amount: 1
         ),
         .init(
             id: "2",
@@ -149,7 +149,7 @@ private extension CollectionView {
                 "Saddle",
                 "Vigilance"
             ],
-            amount: 0
+            amount: 1
         ),
         .init(
             id: "3",
@@ -167,7 +167,7 @@ private extension CollectionView {
             keywords: [
                 "Saddle"
             ],
-            amount: 0
+            amount: 1
         ),
         .init(
             id: "4",
@@ -185,7 +185,7 @@ private extension CollectionView {
             keywords: [
                 "Crew"
             ],
-            amount: 0
+            amount: 1
         ),
         .init(
             id: "5",
@@ -203,7 +203,7 @@ private extension CollectionView {
             keywords: [
                 "Saddle"
             ],
-            amount: 0
+            amount: 1
         )
     ]
     let cardController = CardController(cards: cards)

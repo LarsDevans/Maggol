@@ -24,6 +24,8 @@ final class CardController: ObservableObject, FetchCardDelegate {
         dataService = DataService.persistent
         
         Task {
+            self.resetMemory()
+            
             for card in cards {
                 await addCard(card)
             }
@@ -38,6 +40,10 @@ final class CardController: ObservableObject, FetchCardDelegate {
         if let fetchedCards {
             cards = fetchedCards
         }
+    }
+    
+    func resetMemory() {
+        
     }
     
     func update(with card: Card) {
