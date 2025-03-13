@@ -130,6 +130,8 @@ private extension CollectionView {
             setName: "Aetherdrift",
             collectorNumber: "3",
             rarity: "rare",
+            power: "2",
+            toughness: "1",
             keywords: [
                 "Cycling"
             ],
@@ -149,6 +151,8 @@ private extension CollectionView {
             setName: "Aetherdrift",
             collectorNumber: "4",
             rarity: "common",
+            power: "1",
+            toughness: "1",
             keywords: [
                 "Saddle",
                 "Vigilance"
@@ -168,6 +172,8 @@ private extension CollectionView {
             setName: "Aetherdrift",
             collectorNumber: "5",
             rarity: "common",
+            power: "3",
+            toughness: "3",
             keywords: [
                 "Saddle"
             ],
@@ -186,6 +192,8 @@ private extension CollectionView {
             setName: "Aetherdrift",
             collectorNumber: "6",
             rarity: "common",
+            power: "5",
+            toughness: "4",
             keywords: [
                 "Crew"
             ],
@@ -204,6 +212,8 @@ private extension CollectionView {
             setName: "Aetherdrift",
             collectorNumber: "7",
             rarity: "rare",
+            power: "2",
+            toughness: "2",
             keywords: [
                 "Saddle"
             ],

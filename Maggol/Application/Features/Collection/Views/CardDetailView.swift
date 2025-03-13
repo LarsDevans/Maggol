@@ -71,9 +71,16 @@ private extension CardDetailView {
                 .foregroundStyle(.white)
                 .font(.title)
             
-            Text(card.typeLine)
+            Text("\(card.typeLine) \(powerAndToughness)")
                 .foregroundStyle(.white.opacity(0.8))
         }
+    }
+    
+    var powerAndToughness: Text {
+        guard let power = card.power,
+              let toughness = card.toughness else { return Text("") }
+        
+        return Text("\(power)/\(toughness)")
     }
     
     var cardOverlayMana: some View {
