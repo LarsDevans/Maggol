@@ -17,6 +17,7 @@ final class Card: Identifiable, Decodable, Equatable {
     var manaCost: String
     var oracleText: String
     var setName: String
+    var set: String
     var collectorNumber: String
     var rarity: String
     var power: String?
@@ -43,6 +44,7 @@ final class Card: Identifiable, Decodable, Equatable {
         case manaCost = "mana_cost"
         case oracleText = "oracle_text"
         case setName = "set_name"
+        case set
         case collectorNumber = "collector_number"
         case rarity
         case power
@@ -58,6 +60,7 @@ final class Card: Identifiable, Decodable, Equatable {
         manaCost: String,
         oracleText: String,
         setName: String,
+        set: String,
         collectorNumber: String,
         rarity: String,
         power: String? = nil,
@@ -73,6 +76,7 @@ final class Card: Identifiable, Decodable, Equatable {
         self.manaCost = manaCost
         self.oracleText = oracleText
         self.setName = setName
+        self.set = set
         self.collectorNumber = collectorNumber
         self.rarity = rarity
         self.power = power
@@ -91,6 +95,7 @@ final class Card: Identifiable, Decodable, Equatable {
         manaCost = try container.decode(String.self, forKey: .manaCost)
         oracleText = try container.decode(String.self, forKey: .oracleText)
         setName = try container.decode(String.self, forKey: .setName)
+        set = try container.decode(String.self, forKey: .set)
         collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         rarity = try container.decode(String.self, forKey: .rarity)
         power = try container.decode(String.self, forKey: .power)
