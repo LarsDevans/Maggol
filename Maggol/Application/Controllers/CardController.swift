@@ -15,16 +15,21 @@ final class CardController: ObservableObject, FetchCardDelegate {
     
     private let dataService: DataService
     
-    convenience init() {
+    convenience init(resetMemory: Bool = false) {
         self.init(cards: [])
+        if resetMemory {
+            Task { await self.resetMemory() }
+        }
     }
     
-    init(cards: [Card]) {
+    init(cards: [Card], resetMemory: Bool = false) {
         self.cards = cards
         dataService = DataService.persistent
         
         Task {
-            self.resetMemory()
+            if resetMemory {
+                await self.resetMemory()
+            }
             
             for card in cards {
                 await addCard(card)
@@ -42,8 +47,18 @@ final class CardController: ObservableObject, FetchCardDelegate {
         }
     }
     
+    @MainActor
     func resetMemory() {
-        
+        do {
+            let fetchRequest = FetchDescriptor<Card>()
+            let objects = try dataService.container.mainContext.fetch(fetchRequest)
+            for object in objects {
+                dataService.container.mainContext.delete(object)
+            }
+            try dataService.container.mainContext.save()
+        } catch {
+            print("Error deleting data: \(error)")
+        }
     }
     
     func update(with card: Card) {

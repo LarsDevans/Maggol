@@ -107,7 +107,8 @@ private extension CollectionView {
 }
 
 #Preview("Empty state") {
-    let viewModel = CollectionViewModel()
+    let cardController = CardController(resetMemory: true)
+    let viewModel = CollectionViewModel(cardController: cardController)
     CollectionView(viewModel: viewModel)
 }
 
@@ -206,7 +207,7 @@ private extension CollectionView {
             amount: 1
         )
     ]
-    let cardController = CardController(cards: cards)
+    let cardController = CardController(cards: cards, resetMemory: true)
     let viewModel = CollectionViewModel(cardController: cardController)
     CollectionView(viewModel: viewModel)
 }
