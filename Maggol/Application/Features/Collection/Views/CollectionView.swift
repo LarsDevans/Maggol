@@ -72,11 +72,15 @@ private extension CollectionView {
     }
     
     private var populatedState: some View {
-        ForEach(viewModel.filteredCards) { card in
+        ForEach(viewModel.filteredCards, id: \.applicationCardId) { card in
             NavigationLink(
                 destination: CardDetailView(card: card, cardViewModel: cardViewModel)
-            ) { Text(card.name) }
-                .navigationTitle("Collectie")
+            ) {
+                Text("\(card.name) \(card.foil ? " ٭" : "")")
+                Text("\(card.amount)")
+                    .foregroundStyle(.secondary)
+            }
+            .navigationTitle("Collectie")
         }
     }
     
@@ -110,7 +114,7 @@ private extension CollectionView {
 #Preview("Populated state") {
     let cards: [Card] = [
         .init(
-            id  : "1",
+            id: "1",
             name: "Basri, Tomorrow's Champion",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/9/9/991270fa-a391-4c2e-bd9a-19151386fb67.jpg?1738356108",
@@ -124,7 +128,9 @@ private extension CollectionView {
             rarity: "rare",
             keywords: [
                 "Cycling"
-            ]
+            ],
+            foil: true,
+            amount: 0
         ),
         .init(
             id: "2",
@@ -142,7 +148,8 @@ private extension CollectionView {
             keywords: [
                 "Saddle",
                 "Vigilance"
-            ]
+            ],
+            amount: 0
         ),
         .init(
             id: "3",
@@ -159,7 +166,8 @@ private extension CollectionView {
             rarity: "common",
             keywords: [
                 "Saddle"
-            ]
+            ],
+            amount: 0
         ),
         .init(
             id: "4",
@@ -176,7 +184,8 @@ private extension CollectionView {
             rarity: "common",
             keywords: [
                 "Crew"
-            ]
+            ],
+            amount: 0
         ),
         .init(
             id: "5",
@@ -193,7 +202,8 @@ private extension CollectionView {
             rarity: "rare",
             keywords: [
                 "Saddle"
-            ]
+            ],
+            amount: 0
         )
     ]
     let cardController = CardController(cards: cards)

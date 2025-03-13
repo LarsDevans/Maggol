@@ -118,6 +118,10 @@ private extension CardDetailView {
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
             Divider()
             keywordsSection
+            Divider()
+            SectionViewHorizontal(title: "Foil kaart", value: card.foil ? "Ja" : "Nee")
+            Divider()
+            SectionViewHorizontal(title: "Aantal", value: String(card.amount))
         }
     }
     

@@ -61,6 +61,8 @@ final class CardViewModel: ObservableObject {
     
     func submit() {
         guard let card = fetchedCard else { return }
+        card.foil = addCardFoil
+        
         delegate?.update(with: card)
     }
 }

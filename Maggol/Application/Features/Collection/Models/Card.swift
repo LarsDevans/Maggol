@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Card: Identifiable, Decodable {
+final class Card: Identifiable, Decodable, Equatable {
     var id: String
     var name: String
     var imageURL: CardImage
@@ -19,12 +19,18 @@ final class Card: Identifiable, Decodable {
     var setName: String
     var collectorNumber: String
     var rarity: String
+    var foil: Bool
+    var amount: Int
     
     private var keywords: [Keyword]
     
     var keywordStrings: [String] {
         get { keywords.map(\.value) }
         set { keywords = newValue.map(Keyword.init) }
+    }
+    
+    var applicationCardId: String {
+        "\(id)-\(foil ? "F" : "")"
     }
     
     enum CodingKeys: String, CodingKey {
@@ -50,7 +56,9 @@ final class Card: Identifiable, Decodable {
         setName: String,
         collectorNumber: String,
         rarity: String,
-        keywords: [String]
+        keywords: [String],
+        foil: Bool = false,
+        amount: Int = 1
     ) {
         self.id = id
         self.name = name
@@ -62,6 +70,8 @@ final class Card: Identifiable, Decodable {
         self.collectorNumber = collectorNumber
         self.rarity = rarity
         self.keywords = keywords.map(Keyword.init)
+        self.foil = foil
+        self.amount = amount
     }
     
     required init(from decoder: Decoder) throws {
@@ -78,6 +88,9 @@ final class Card: Identifiable, Decodable {
         
         let keywordStrings = try container.decode([String].self, forKey: .keywords)
         self.keywords = keywordStrings.map(Keyword.init)
+        
+        self.foil = false
+        self.amount = 1
     }
     
     private struct Keyword: Codable {
@@ -86,5 +99,9 @@ final class Card: Identifiable, Decodable {
         init(_ value: String) {
             self.value = value
         }
+    }
+    
+    static func ==(lhs: Card, rhs: Card) -> Bool {
+        lhs.applicationCardId == rhs.applicationCardId
     }
 }
