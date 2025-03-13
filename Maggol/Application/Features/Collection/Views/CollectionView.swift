@@ -76,9 +76,18 @@ private extension CollectionView {
             NavigationLink(
                 destination: CardDetailView(card: card, cardViewModel: cardViewModel)
             ) {
-                Text("\(card.name) \(card.foil ? " ٭" : "")")
-                Text("\(card.amount)")
-                    .foregroundStyle(.secondary)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("\(card.name) \(card.foil ? " ٭" : "")")
+                    }
+                    
+                    Spacer()
+                    
+                    if card.amount > 1 {
+                        Text("\(card.amount)")
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
             .navigationTitle("Collectie")
         }
@@ -137,7 +146,7 @@ private extension CollectionView {
                 "Cycling"
             ],
             foil: true,
-            amount: 1
+            amount: 2
         ),
         .init(
             id: "2",
@@ -201,7 +210,7 @@ private extension CollectionView {
             keywords: [
                 "Crew"
             ],
-            amount: 1
+            amount: 3
         ),
         .init(
             id: "5",
