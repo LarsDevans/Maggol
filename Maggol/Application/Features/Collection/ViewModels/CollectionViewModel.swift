@@ -40,4 +40,10 @@ final class CollectionViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func removeCard(at indexSet: IndexSet) {
+        for index in indexSet {
+            cardController.remove(at: index)
+        }
+    }
 }

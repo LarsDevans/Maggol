@@ -66,6 +66,18 @@ final class CardController: ObservableObject, FetchCardDelegate {
             await addCard(card)
         }
     }
+    
+    @MainActor
+    func remove(at index: Int) {
+        guard cards.count > index else { return }
+        
+        dataService.container.mainContext.delete(cards[index])
+        Task {
+            await dataService.save()
+        }
+        
+        cards.remove(at: index)
+    }
 }
 
 private extension CardController {

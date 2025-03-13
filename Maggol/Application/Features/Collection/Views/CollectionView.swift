@@ -82,6 +82,9 @@ private extension CollectionView {
             }
             .navigationTitle("Collectie")
         }
+        .onDelete { indexSet in
+            viewModel.removeCard(at: indexSet)
+        }
     }
     
     private var searchEmptyState: some View {
