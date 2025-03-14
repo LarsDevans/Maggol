@@ -71,16 +71,9 @@ private extension CardDetailView {
                 .foregroundStyle(.white)
                 .font(.title)
             
-            Text("\(card.typeLine) \(powerAndToughness)")
+            Text(card.typeLine)
                 .foregroundStyle(.white.opacity(0.8))
         }
-    }
-    
-    var powerAndToughness: Text {
-        guard let power = card.power,
-              let toughness = card.toughness else { return Text("") }
-        
-        return Text("\(power)/\(toughness)")
     }
     
     var cardOverlayMana: some View {
@@ -122,11 +115,15 @@ private extension CardDetailView {
             Divider()
             SectionViewHorizontal(title: "Nummer", value: card.collectorNumber)
             Divider()
+            SectionViewHorizontal(title: "Foil kaart", value: card.foil ? "Ja" : "Nee")
+            Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
             Divider()
-            keywordsSection
+            SectionViewHorizontal(title: "Kracht", value: card.power ?? "0")
             Divider()
-            SectionViewHorizontal(title: "Foil kaart", value: card.foil ? "Ja" : "Nee")
+            SectionViewHorizontal(title: "Verdediging", value: card.toughness ?? "0")
+            Divider()
+            keywordsSection
             Divider()
             SectionViewHorizontal(title: "Aantal", value: String(card.amount))
         }
