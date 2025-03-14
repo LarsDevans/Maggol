@@ -63,11 +63,10 @@ private extension CardController {
     func addCard(_ card: Card) async {
         if let cardToUpdate = cards.first(where: { $0 == card }) {
             cardToUpdate.amount += 1
-            return
+        } else {
+            cards.append(card)
+            dataService.container.mainContext.insert(card)
         }
-        
-        cards.append(card)
-        dataService.container.mainContext.insert(card)
         
         await dataService.save()
     }
