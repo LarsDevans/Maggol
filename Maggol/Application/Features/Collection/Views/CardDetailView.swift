@@ -144,14 +144,14 @@ private extension CardDetailView {
     
     @ViewBuilder
     var powerAndToughnessSection: some View {
-        if card.power != nil {
+        if let power = card.power {
             Divider()
-            SectionViewHorizontal(title: "Kracht", value: card.power ?? "0")
+            SectionViewHorizontal(title: "Kracht", value: power)
         }
         
-        if card.toughness != nil {
+        if let toughness = card.toughness {
             Divider()
-            SectionViewHorizontal(title: "Verdediging", value: card.toughness ?? "0")
+            SectionViewHorizontal(title: "Verdediging", value: toughness)
         }
     }
     
