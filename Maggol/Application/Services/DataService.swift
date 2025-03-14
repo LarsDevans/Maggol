@@ -25,7 +25,7 @@ final class DataService {
             let config = ModelConfiguration(isStoredInMemoryOnly: !persistent)
             container = try ModelContainer(for: schema, configurations: config)
         } catch {
-            fatalError("Failed to initialize fallback ModelContainer: \(error)")
+            fatalError("Failed to initialize ModelContainer. You may need to reinstall the app: \(error)")
         }
     }
     
