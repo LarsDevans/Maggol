@@ -211,7 +211,7 @@ private extension CollectionView {
                 "Crew"
             ],
             foil: true,
-            amount: 3
+            amount: 7
         ),
         .init(
             id: "106944b2-f3ae-4350-be33-61b9f92fc92f",
@@ -232,7 +232,7 @@ private extension CollectionView {
             keywords: [
                 "Saddle"
             ],
-            amount: 2
+            amount: 4
         )
     ]
     let cardController = CardController(cards: cards, dataService: .inMemory)
