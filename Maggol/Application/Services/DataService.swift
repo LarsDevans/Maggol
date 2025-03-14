@@ -25,15 +25,7 @@ final class DataService {
             let config = ModelConfiguration(isStoredInMemoryOnly: !persistent)
             container = try ModelContainer(for: schema, configurations: config)
         } catch {
-//            assertionFailure("Failed to initialize ModelContainer: \(error)")
-            
-            do {
-                let schema = Schema([Card.self, CardImage.self])
-                let config = ModelConfiguration(isStoredInMemoryOnly: !persistent)
-                container = try ModelContainer(for: schema, configurations: config)
-            } catch {
-                fatalError("Failed to initialize fallback ModelContainer: \(error)")
-            }
+            fatalError("Failed to initialize fallback ModelContainer: \(error)")
         }
     }
     
