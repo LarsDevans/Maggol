@@ -111,13 +111,18 @@ private extension CardDetailView {
     
     var metadataSections: some View {
         VStack(alignment: .leading, spacing: 8) {
-            SectionViewHorizontal(title: "Set", value: card.setName)
+            SectionViewHorizontal(title: "Set", value: "\(card.setName) (\(card.set.uppercased()))")
             Divider()
             SectionViewHorizontal(title: "Nummer", value: card.collectorNumber)
             Divider()
+            SectionViewHorizontal(title: "Foil kaart", value: card.foil ? "Ja" : "Nee")
+            Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
+            powerAndToughnessSection
             Divider()
             keywordsSection
+            Divider()
+            SectionViewHorizontal(title: "Aantal", value: String(card.amount))
         }
     }
     
@@ -134,6 +139,19 @@ private extension CardDetailView {
                     Text("Geen trefwoorden").italic()
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    var powerAndToughnessSection: some View {
+        if let power = card.power {
+            Divider()
+            SectionViewHorizontal(title: "Kracht", value: power)
+        }
+        
+        if let toughness = card.toughness {
+            Divider()
+            SectionViewHorizontal(title: "Verdediging", value: toughness)
         }
     }
     
@@ -165,6 +183,7 @@ private extension CardDetailView {
         manaCost: "{4}",
         oracleText: "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring.",
         setName: "The Lord of the Rings: Tales of Middle-earth",
+        set: "ltr",
         collectorNumber: "246",
         rarity: "mythic",
         keywords: [

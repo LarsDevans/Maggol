@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Card: Identifiable, Decodable {
+final class Card: Identifiable, Decodable, Equatable {
     var id: String
     var name: String
     var imageURL: CardImage
@@ -17,14 +17,23 @@ final class Card: Identifiable, Decodable {
     var manaCost: String
     var oracleText: String
     var setName: String
+    var set: String
     var collectorNumber: String
     var rarity: String
+    var power: String?
+    var toughness: String?
+    var foil: Bool
+    var amount: Int
     
     private var keywords: [Keyword]
     
     var keywordStrings: [String] {
         get { keywords.map(\.value) }
         set { keywords = newValue.map(Keyword.init) }
+    }
+    
+    var applicationCardId: String {
+        "\(id)-\(foil ? "F" : "")"
     }
     
     enum CodingKeys: String, CodingKey {
@@ -35,8 +44,11 @@ final class Card: Identifiable, Decodable {
         case manaCost = "mana_cost"
         case oracleText = "oracle_text"
         case setName = "set_name"
+        case set
         case collectorNumber = "collector_number"
         case rarity
+        case power
+        case toughness
         case keywords
     }
     
@@ -48,9 +60,14 @@ final class Card: Identifiable, Decodable {
         manaCost: String,
         oracleText: String,
         setName: String,
+        set: String,
         collectorNumber: String,
         rarity: String,
-        keywords: [String]
+        power: String? = nil,
+        toughness: String? = nil,
+        keywords: [String],
+        foil: Bool = false,
+        amount: Int = 1
     ) {
         self.id = id
         self.name = name
@@ -59,9 +76,14 @@ final class Card: Identifiable, Decodable {
         self.manaCost = manaCost
         self.oracleText = oracleText
         self.setName = setName
+        self.set = set
         self.collectorNumber = collectorNumber
         self.rarity = rarity
+        self.power = power
+        self.toughness = toughness
         self.keywords = keywords.map(Keyword.init)
+        self.foil = foil
+        self.amount = amount
     }
     
     required init(from decoder: Decoder) throws {
@@ -73,11 +95,17 @@ final class Card: Identifiable, Decodable {
         manaCost = try container.decode(String.self, forKey: .manaCost)
         oracleText = try container.decode(String.self, forKey: .oracleText)
         setName = try container.decode(String.self, forKey: .setName)
+        set = try container.decode(String.self, forKey: .set)
         collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         rarity = try container.decode(String.self, forKey: .rarity)
+        power = try container.decode(String.self, forKey: .power)
+        toughness = try container.decode(String.self, forKey: .toughness)
         
         let keywordStrings = try container.decode([String].self, forKey: .keywords)
         self.keywords = keywordStrings.map(Keyword.init)
+        
+        self.foil = false
+        self.amount = 1
     }
     
     private struct Keyword: Codable {
@@ -86,5 +114,9 @@ final class Card: Identifiable, Decodable {
         init(_ value: String) {
             self.value = value
         }
+    }
+    
+    static func ==(lhs: Card, rhs: Card) -> Bool {
+        lhs.applicationCardId == rhs.applicationCardId
     }
 }

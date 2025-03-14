@@ -21,15 +21,11 @@ final class DataService {
     
     private init(persistent: Bool = true) {
         do {
+            let schema = Schema([Card.self, CardImage.self])
             let config = ModelConfiguration(isStoredInMemoryOnly: !persistent)
-            container = try ModelContainer(
-                for:
-                    Card.self,
-                    CardImage.self,
-                configurations: config
-            )
+            container = try ModelContainer(for: schema, configurations: config)
         } catch {
-            fatalError("Failed to initialize ModelContainer: \(error)")
+            fatalError("Failed to initialize ModelContainer. You may need to reinstall the app: \(error)")
         }
     }
     

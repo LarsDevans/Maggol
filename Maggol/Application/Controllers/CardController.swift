@@ -11,7 +11,7 @@ import SwiftData
 final class CardController: ObservableObject, FetchCardDelegate {
     static let shared = CardController()
     
-    @Published private(set) var cards: [Card]
+    @Published private(set) var cards: [Card] = []
     
     private let dataService: DataService
     
@@ -19,9 +19,8 @@ final class CardController: ObservableObject, FetchCardDelegate {
         self.init(cards: [])
     }
     
-    init(cards: [Card]) {
-        self.cards = cards
-        dataService = DataService.persistent
+    init(cards: [Card], dataService: DataService = .persistent) {
+        self.dataService = dataService
         
         Task {
             for card in cards {
@@ -62,8 +61,12 @@ final class CardController: ObservableObject, FetchCardDelegate {
 private extension CardController {
     @MainActor
     func addCard(_ card: Card) async {
-        cards.append(card)
-        dataService.container.mainContext.insert(card)
+        if let cardToUpdate = cards.first(where: { $0 == card }) {
+            cardToUpdate.amount += 1
+        } else {
+            cards.append(card)
+            dataService.container.mainContext.insert(card)
+        }
         
         await dataService.save()
     }
