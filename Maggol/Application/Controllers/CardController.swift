@@ -11,26 +11,18 @@ import SwiftData
 final class CardController: ObservableObject, FetchCardDelegate {
     static let shared = CardController()
     
-    @Published private(set) var cards: [Card]
+    @Published private(set) var cards: [Card] = []
     
     private let dataService: DataService
     
-    convenience init(resetMemory: Bool = false) {
+    convenience init() {
         self.init(cards: [])
-        if resetMemory {
-            Task { await self.resetMemory() }
-        }
     }
     
-    init(cards: [Card], resetMemory: Bool = false) {
-        self.cards = cards
-        dataService = DataService.persistent
+    init(cards: [Card], dataService: DataService = .persistent) {
+        self.dataService = dataService
         
         Task {
-            if resetMemory {
-                await self.resetMemory()
-            }
-            
             for card in cards {
                 await addCard(card)
             }
@@ -44,20 +36,6 @@ final class CardController: ObservableObject, FetchCardDelegate {
         
         if let fetchedCards {
             cards = fetchedCards
-        }
-    }
-    
-    @MainActor
-    func resetMemory() {
-        do {
-            let fetchRequest = FetchDescriptor<Card>()
-            let objects = try dataService.container.mainContext.fetch(fetchRequest)
-            for object in objects {
-                dataService.container.mainContext.delete(object)
-            }
-            try dataService.container.mainContext.save()
-        } catch {
-            print("Error deleting data: \(error)")
         }
     }
     

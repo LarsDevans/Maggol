@@ -119,7 +119,7 @@ private extension CollectionView {
 }
 
 #Preview("Empty state") {
-    let cardController = CardController(resetMemory: true)
+    let cardController = CardController(cards: [], dataService: .inMemory)
     let viewModel = CollectionViewModel(cardController: cardController)
     CollectionView(viewModel: viewModel)
 }
@@ -127,7 +127,7 @@ private extension CollectionView {
 #Preview("Populated state") {
     let cards: [Card] = [
         .init(
-            id: "1",
+            id: "991270fa-a391-4c2e-bd9a-19151386fb67",
             name: "Basri, Tomorrow's Champion",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/9/9/991270fa-a391-4c2e-bd9a-19151386fb67.jpg?1738356108",
@@ -149,7 +149,7 @@ private extension CollectionView {
             amount: 2
         ),
         .init(
-            id: "2",
+            id: "7eb819eb-ba5c-4449-87b5-3894380558bc",
             name: "Brightfield Glider",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/7/e/7eb819eb-ba5c-4449-87b5-3894380558bc.jpg?1738356111",
@@ -171,7 +171,7 @@ private extension CollectionView {
             amount: 1
         ),
         .init(
-            id: "3",
+            id: "b2c7cacc-f15e-46c1-9c25-b567bb3e8680",
             name: "Brightfield Mustang",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/b/2/b2c7cacc-f15e-46c1-9c25-b567bb3e8680.jpg?1738356112",
@@ -192,7 +192,7 @@ private extension CollectionView {
             amount: 1
         ),
         .init(
-            id: "4",
+            id: "89ce2385-e33d-47b3-96c8-5a4672d9df7c",
             name: "Bulwark Ox",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/1/0/106944b2-f3ae-4350-be33-61b9f92fc92f.jpg?1738356118",
@@ -210,10 +210,11 @@ private extension CollectionView {
             keywords: [
                 "Crew"
             ],
+            foil: true,
             amount: 3
         ),
         .init(
-            id: "5",
+            id: "106944b2-f3ae-4350-be33-61b9f92fc92f",
             name: "Canyon Vaulter",
             imageURL: CardImage(
                 normal: "https://cards.scryfall.io/normal/front/c/c/cc0b15da-a45c-42f5-aafc-20ad9e38bf24.jpg?1738356122",
@@ -231,10 +232,10 @@ private extension CollectionView {
             keywords: [
                 "Saddle"
             ],
-            amount: 1
+            amount: 2
         )
     ]
-    let cardController = CardController(cards: cards, resetMemory: true)
+    let cardController = CardController(cards: cards, dataService: .inMemory)
     let viewModel = CollectionViewModel(cardController: cardController)
     CollectionView(viewModel: viewModel)
 }
