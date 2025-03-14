@@ -118,10 +118,7 @@ private extension CardDetailView {
             SectionViewHorizontal(title: "Foil kaart", value: card.foil ? "Ja" : "Nee")
             Divider()
             SectionViewHorizontal(title: "Zeldzaamheid", value: card.rarity.capitalized)
-            Divider()
-            SectionViewHorizontal(title: "Kracht", value: card.power ?? "0")
-            Divider()
-            SectionViewHorizontal(title: "Verdediging", value: card.toughness ?? "0")
+            powerAndToughnessSection
             Divider()
             keywordsSection
             Divider()
@@ -142,6 +139,19 @@ private extension CardDetailView {
                     Text("Geen trefwoorden").italic()
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    var powerAndToughnessSection: some View {
+        if card.power != nil {
+            Divider()
+            SectionViewHorizontal(title: "Kracht", value: card.power ?? "0")
+        }
+        
+        if card.toughness != nil {
+            Divider()
+            SectionViewHorizontal(title: "Verdediging", value: card.toughness ?? "0")
         }
     }
     
