@@ -39,6 +39,7 @@ struct CardDetailView: View {
 private extension CardDetailView {
     var toolbarToggleSheetAction: some View {
         Button(action: {
+            viewModel.edit(card: card)
             viewModel.isEditingCard.toggle()
         }) {
             Label("Wijzigen", systemImage: "pencil")
@@ -46,7 +47,7 @@ private extension CardDetailView {
     }
     
     private var editCardSheet: some View {
-        CardEditView(viewModel: viewModel, card: card)
+        return CardEditView(viewModel: viewModel)
             .presentationDragIndicator(.visible)
     }
 }

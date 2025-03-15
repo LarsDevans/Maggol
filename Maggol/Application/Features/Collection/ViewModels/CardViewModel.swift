@@ -10,7 +10,8 @@ import SwiftUI
 
 final class CardViewModel: ObservableObject {
     @Published var isEditingCard: Bool = false
-
+    @Published var cardToEdit: Card? = nil
+    
     @Published var addCardSetPrompt: String {
         didSet {
             Task {
@@ -69,7 +70,11 @@ final class CardViewModel: ObservableObject {
     }
     
     func edit(card: Card) {
-        if card.hasChanges {
+        cardToEdit = card
+    }
+    
+    func saveEdits() {
+        if let card = cardToEdit, card.hasChanges {
             delegate?.edit(with: card)
         }
     }

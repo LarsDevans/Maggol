@@ -10,17 +10,20 @@ import SwiftUI
 struct CardEditView: View {
     @Environment(\.dismiss) private var dismiss
     
-    var viewModel: CardViewModel
-    @State var card: Card
+    @ObservedObject var viewModel: CardViewModel
     
     var body: some View {
         Form {
-            Section("Kaart informatie") {
-                cardInformation
-            }
-            
-            Section {
-                cardEditAction
+            if let card = viewModel.cardToEdit {
+                Section("Kaart informatie") {
+                    cardInformation(card: card)
+                }
+                
+                Section {
+                    cardEditAction
+                }
+            } else {
+                Text("Oeps! Er lijkt iets mis te gaan...\nGeen kaart geselecteerd!")
             }
         }
     }
@@ -28,27 +31,38 @@ struct CardEditView: View {
 
 private extension CardEditView {
     @ViewBuilder
-    var cardInformation: some View {
+    func cardInformation(card: Card) -> some View {
         TextField(
             "Aantal",
-            value: $card.amount,
+            value: Binding(
+                get: { card.amount },
+                set: { viewModel.cardToEdit?.amount = $0 }
+            ),
             format: .number
         )
         .keyboardType(.numberPad)
         
-        Toggle(isOn: $card.foil) {
+        Toggle(isOn: Binding(
+            get: { card.foil },
+            set: { viewModel.cardToEdit?.foil = $0 }
+        )) {
             Text("Foil-kaart inschakelen")
         }
     }
     
     var cardEditAction: some View {
         Button(action: {
-            viewModel.edit(card: card)
+            viewModel.saveEdits()
             dismiss()
         }) {
             Text("Wijzigingen opslaan")
         }
     }
+}
+
+#Preview("Empty state") {
+    let viewModel = CardViewModel()
+    CardEditView(viewModel: viewModel)
 }
 
 #Preview("Populated state") {
@@ -72,5 +86,7 @@ private extension CardEditView {
         ]
     )
     let viewModel = CardViewModel()
-    CardEditView(viewModel: viewModel, card: card)
+    viewModel.edit(card: card)
+    
+    return CardEditView(viewModel: viewModel)
 }
