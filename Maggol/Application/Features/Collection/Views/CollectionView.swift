@@ -74,7 +74,7 @@ private extension CollectionView {
     private var populatedState: some View {
         ForEach(viewModel.filteredCards, id: \.applicationCardId) { card in
             NavigationLink(
-                destination: CardDetailView(card: card, cardViewModel: cardViewModel)
+                destination: CardDetailView(card: card, viewModel: cardViewModel)
             ) {
                 HStack {
                     VStack(alignment: .leading) {

@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 final class CardViewModel: ObservableObject {
+    @Published var isEditingCard: Bool = false
+    @Published var cardToEdit: Card? = nil
+    
     @Published var addCardSetPrompt: String {
         didSet {
             Task {
@@ -26,7 +29,7 @@ final class CardViewModel: ObservableObject {
     @Published var addCardFoil: Bool = false
     @Published var fetchedCard: Card?
     
-    var delegate: FetchCardDelegate? = nil
+    var delegate: CardDelegate? = nil
     
     private let magicService: MagicService
     
@@ -64,5 +67,15 @@ final class CardViewModel: ObservableObject {
         card.foil = addCardFoil
         
         delegate?.update(with: card)
+    }
+    
+    func edit(card: Card) {
+        cardToEdit = card
+    }
+    
+    func saveEdits() {
+        if let card = cardToEdit, card.hasChanges {
+            delegate?.edit(with: card)
+        }
     }
 }
