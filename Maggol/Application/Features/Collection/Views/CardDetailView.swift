@@ -9,13 +9,13 @@ import SwiftUI
 
 struct CardDetailView: View {
     let card: Card
-    let cardViewModel: CardViewModel
+    @ObservedObject private(set) var viewModel: CardViewModel
     let manaCostImages: [Image]
     
-    init(card: Card, cardViewModel: CardViewModel) {
+    init(card: Card, viewModel: CardViewModel) {
         self.card = card
-        self.cardViewModel = cardViewModel
-        self.manaCostImages = cardViewModel.translateManaCost(manaCost: card.manaCost)
+        self.viewModel = viewModel
+        self.manaCostImages = viewModel.translateManaCost(manaCost: card.manaCost)
     }
     
     var body: some View {
@@ -23,8 +23,31 @@ struct CardDetailView: View {
             headerSection
             detailsSection
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                toolbarToggleSheetAction
+            }
+        }
+        .sheet(isPresented: $viewModel.isEditingCard) {
+            editCardSheet
+        }
         .navigationTitle(card.name)
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private extension CardDetailView {
+    var toolbarToggleSheetAction: some View {
+        Button(action: {
+            viewModel.isEditingCard.toggle()
+        }) {
+            Label("Wijzigen", systemImage: "pencil")
+        }
+    }
+    
+    private var editCardSheet: some View {
+        CardEditView(viewModel: viewModel, card: card)
+            .presentationDragIndicator(.visible)
     }
 }
 
@@ -191,5 +214,5 @@ private extension CardDetailView {
         ]
     )
     
-    CardDetailView(card: card, cardViewModel: CardViewModel())
+    CardDetailView(card: card, viewModel: CardViewModel())
 }

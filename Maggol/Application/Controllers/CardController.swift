@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-final class CardController: ObservableObject, FetchCardDelegate {
+final class CardController: ObservableObject, CardDelegate {
     static let shared = CardController()
     
     @Published private(set) var cards: [Card] = []
@@ -45,6 +45,12 @@ final class CardController: ObservableObject, FetchCardDelegate {
         }
     }
     
+    func edit(with card: Card) {
+        Task {
+            await editCard(card)
+        }
+    }
+    
     @MainActor
     func remove(at index: Int) {
         guard cards.count > index else { return }
@@ -69,5 +75,14 @@ private extension CardController {
         }
         
         await dataService.save()
+    }
+    
+    @MainActor
+    func editCard(_ card: Card) async {
+        if let oldCardId = cards.firstIndex(where: { $0.applicationCardId == card.applicationCardId}) {
+            dataService.container.mainContext.delete(cards[oldCardId])
+            dataService.container.mainContext.insert(card)
+            await dataService.save()
+        }
     }
 }
