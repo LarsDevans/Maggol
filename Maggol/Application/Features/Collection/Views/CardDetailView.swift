@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct CardDetailView: View {
-    let card: Card
     @ObservedObject private(set) var viewModel: CardViewModel
     let manaCostImages: [Image]
     
-    init(card: Card, viewModel: CardViewModel) {
-        self.card = card
+    let card: Card
+    
+    init(viewModel: CardViewModel, card: Card) {
         self.viewModel = viewModel
         self.manaCostImages = viewModel.translateManaCost(manaCost: card.manaCost)
+        
+        self.card = card
     }
     
     var body: some View {
@@ -215,5 +217,5 @@ private extension CardDetailView {
         ]
     )
     
-    CardDetailView(card: card, viewModel: CardViewModel())
+    CardDetailView(viewModel: CardViewModel(), card: card)
 }

@@ -11,8 +11,8 @@ import SwiftUI
 final class CardViewModel: ObservableObject {
     @Published var isEditingCard: Bool = false
     
-    @Published var originalCard: Card?
-    @Published var editedCard: Card?
+    @Published var editableCard: Card?
+    @Published var editableCardCopy: Card?
     
     @Published var addCardSetPrompt: String {
         didSet {
@@ -70,33 +70,33 @@ final class CardViewModel: ObservableObject {
         
         delegate?.update(with: card)
     }
-    
+}
+
+// MARK: -- Edit card methods
+
+extension CardViewModel {
     func edit(card: Card) {
-        self.originalCard = card
-        self.editedCard = card.copy()
+        self.editableCard = card
+        self.editableCardCopy = card.copy()
     }
     
-    func updateEditedCardAmount(_ amount: Int) {
-        guard let editedCard = editedCard else { return }
-        editedCard.amount = amount
-        self.editedCard = editedCard
+    func updateEditableCardAmount(_ amount: Int) {
+        self.editableCardCopy?.amount = amount
     }
     
     func updateEditedCardFoil(_ foil: Bool) {
-        guard let editedCard = editedCard else { return }
-        editedCard.foil = foil
-        self.editedCard = editedCard
+        self.editableCardCopy?.foil = foil
     }
     
     func saveEdits() {
-        guard let original = originalCard,
-              let edited = editedCard,
-              ((original != edited) ||
-                (original.amount != edited.amount))
+        guard let originalCard = editableCard,
+              let originalCardCopy = editableCardCopy,
+              ((originalCard != originalCardCopy) || (originalCard.amount != originalCardCopy.amount))
         else { return }
         
-        delegate?.edit(with: original, updatedCard: edited)
-        originalCard = nil
-        editedCard = nil
+        delegate?.edit(with: originalCard, forCopy: originalCardCopy)
+        
+        editableCard = nil
+        editableCardCopy = nil
     }
 }
