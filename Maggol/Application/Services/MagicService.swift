@@ -21,7 +21,6 @@ final class MagicService {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decodedCard = try JSONDecoder().decode(Card.self, from: data)
-            print("decoded: \(decodedCard)")
             return decodedCard
         } catch {
             return nil
