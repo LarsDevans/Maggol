@@ -1,5 +1,5 @@
 //
-//  FetchedCardDelegate.swift
+//  CardDelegate.swift
 //  Maggol
 //
 //  Created by Lars Beijaard on 21/02/2025.
@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol FetchCardDelegate {
+protocol CardDelegate {
     func update(with card: Card)
+    func edit(with originalCard: Card, updatedCard: Card)
 }

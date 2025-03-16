@@ -120,3 +120,25 @@ final class Card: Identifiable, Decodable, Equatable {
         lhs.applicationCardId == rhs.applicationCardId
     }
 }
+
+extension Card {
+    func copy() -> Card {
+        return Card(
+            id: self.id,
+            name: self.name,
+            imageURL: self.imageURL,
+            typeLine: self.typeLine,
+            manaCost: self.manaCost,
+            oracleText: self.oracleText,
+            setName: self.setName,
+            set: self.set,
+            collectorNumber: self.collectorNumber,
+            rarity: self.rarity,
+            power: self.power,
+            toughness: self.toughness,
+            keywords: self.keywordStrings,
+            foil: self.foil,
+            amount: self.amount
+        )
+    }
+}
