@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CollectionView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     @ObservedObject private(set) var viewModel: CollectionViewModel
     private let cardViewModel: CardViewModel
     
@@ -19,7 +21,7 @@ struct CollectionView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             List {
                 Section {
                     stateContent
@@ -38,6 +40,8 @@ struct CollectionView: View {
                 createCardSheet
             }
             .navigationTitle("Collectie")
+        } detail: {
+            Text("Klik op de knop link bovenaan op jouw collectie te bekijken")
         }
         .onAppear {
             Task {
@@ -115,6 +119,14 @@ private extension CollectionView {
     private var createCardSheet: some View {
         CardCreateView(viewModel: cardViewModel)
             .presentationDragIndicator(.visible)
+    }
+    
+    private var bigScreenInformation: some View {
+        VStack {
+            if horizontalSizeClass == .regular {
+                Text("Klik op het icoon link bovenin om jouw collectie te zien")
+            }
+        }
     }
 }
 
