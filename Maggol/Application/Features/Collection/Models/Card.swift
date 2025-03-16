@@ -98,8 +98,8 @@ final class Card: Identifiable, Decodable, Equatable {
         set = try container.decode(String.self, forKey: .set)
         collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         rarity = try container.decode(String.self, forKey: .rarity)
-        power = try container.decode(String.self, forKey: .power)
-        toughness = try container.decode(String.self, forKey: .toughness)
+        power = try container.decodeIfPresent(String.self, forKey: .power)
+        toughness = try container.decodeIfPresent(String.self, forKey: .toughness)
         
         let keywordStrings = try container.decode([String].self, forKey: .keywords)
         self.keywords = keywordStrings.map(Keyword.init)
