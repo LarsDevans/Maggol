@@ -73,7 +73,7 @@ final class CardViewModel: ObservableObject {
     
     func edit(card: Card) {
         self.originalCard = card
-        self.editedCard = Card.init(id: card.id, name: card.name, imageURL: card.imageURL, typeLine: card.typeLine, manaCost: card.manaCost, oracleText: card.oracleText, setName: card.setName, set: card.set, collectorNumber: card.collectorNumber, rarity: card.rarity, keywords: card.keywordStrings)
+        self.editedCard = card.copy()
     }
     
     func updateEditedCardAmount(_ amount: Int) {
@@ -91,7 +91,9 @@ final class CardViewModel: ObservableObject {
     func saveEdits() {
         guard let original = originalCard,
               let edited = editedCard,
-              !(original == edited) else { return }
+              !((original == edited) &&
+                (original.amount == edited.amount))
+        else { return }
         
         delegate?.edit(with: original, updatedCard: edited)
         originalCard = nil

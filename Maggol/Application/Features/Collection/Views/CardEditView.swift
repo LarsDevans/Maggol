@@ -82,9 +82,12 @@ private extension CardEditView {
         rarity: "mythic",
         keywords: [
             "Indestructible"
-        ]
+        ],
+        foil: true,
+        amount: 5
     )
     let viewModel = CardViewModel()
+    viewModel.isEditingCard = true
     viewModel.edit(card: card)
     
     return CardEditView(viewModel: viewModel)

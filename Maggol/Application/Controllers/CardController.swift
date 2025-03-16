@@ -79,11 +79,14 @@ private extension CardController {
     
     @MainActor
     func editCard(originalCard: Card, updatedCard: Card) async {
-        print("originalCard: amount \(originalCard.amount), foil \(originalCard.foil)")
-        print("updatedCard: amount \(updatedCard.amount), foil \(updatedCard.foil)")
-        
         if let existingCardIndex = cards.firstIndex(where: { $0.applicationCardId == updatedCard.applicationCardId }) {
             let existingCard = cards[existingCardIndex]
+            
+            if originalCard.foil == updatedCard.foil {
+                originalCard.amount = updatedCard.amount
+                await dataService.save()
+                return
+            }
             
             existingCard.amount += updatedCard.amount
             
