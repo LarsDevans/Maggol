@@ -10,7 +10,9 @@ import SwiftUI
 
 final class CardViewModel: ObservableObject {
     @Published var isEditingCard: Bool = false
-    @Published var cardToEdit: Card? = nil
+    
+    @Published var originalCard: Card?
+    @Published var editedCard: Card?
     
     @Published var addCardSetPrompt: String {
         didSet {
@@ -70,12 +72,29 @@ final class CardViewModel: ObservableObject {
     }
     
     func edit(card: Card) {
-        cardToEdit = card
+        self.originalCard = card
+        self.editedCard = Card.init(id: card.id, name: card.name, imageURL: card.imageURL, typeLine: card.typeLine, manaCost: card.manaCost, oracleText: card.oracleText, setName: card.setName, set: card.set, collectorNumber: card.collectorNumber, rarity: card.rarity, keywords: card.keywordStrings)
+    }
+    
+    func updateEditedCardAmount(_ amount: Int) {
+        guard let editedCard = editedCard else { return }
+        editedCard.amount = amount
+        self.editedCard = editedCard
+    }
+    
+    func updateEditedCardFoil(_ foil: Bool) {
+        guard let editedCard = editedCard else { return }
+        editedCard.foil = foil
+        self.editedCard = editedCard
     }
     
     func saveEdits() {
-        if let card = cardToEdit, card.hasChanges {
-            delegate?.edit(with: card)
-        }
+        guard let original = originalCard,
+              let edited = editedCard,
+              !(original == edited) else { return }
+        
+        delegate?.edit(with: original, updatedCard: edited)
+        originalCard = nil
+        editedCard = nil
     }
 }

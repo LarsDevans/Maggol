@@ -9,16 +9,15 @@ import SwiftUI
 
 struct CardEditView: View {
     @Environment(\.dismiss) private var dismiss
-    
     @ObservedObject var viewModel: CardViewModel
     
     var body: some View {
         Form {
-            if let card = viewModel.cardToEdit {
+            if let originalCard = viewModel.originalCard,
+               let editedCard = viewModel.editedCard {
                 Section("Kaart informatie") {
-                    cardInformation(card: card)
+                    cardInformation(originalCard: originalCard, editedCard: editedCard)
                 }
-                
                 Section {
                     cardEditAction
                 }
@@ -31,20 +30,20 @@ struct CardEditView: View {
 
 private extension CardEditView {
     @ViewBuilder
-    func cardInformation(card: Card) -> some View {
+    func cardInformation(originalCard: Card, editedCard: Card) -> some View {
         TextField(
             "Aantal",
             value: Binding(
-                get: { card.amount },
-                set: { viewModel.cardToEdit?.amount = $0 }
+                get: { editedCard.amount },
+                set: { viewModel.updateEditedCardAmount($0) }
             ),
             format: .number
         )
         .keyboardType(.numberPad)
         
         Toggle(isOn: Binding(
-            get: { card.foil },
-            set: { viewModel.cardToEdit?.foil = $0 }
+            get: { editedCard.foil },
+            set: { viewModel.updateEditedCardFoil($0) }
         )) {
             Text("Foil-kaart inschakelen")
         }
