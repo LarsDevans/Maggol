@@ -47,6 +47,8 @@ private extension SetReleaseNotification {
     }
     
     func scheduleNotification(for model: NotificationModel) async {
+        if notificationIsTracked(model) { return }
+        
         let content = UNMutableNotificationContent()
         content.title = "Nieuw: \(model.name)"
         content.body = "Aangekondigd voor release op \(model.release)"
@@ -71,5 +73,17 @@ private extension SetReleaseNotification {
         } catch {
             print("Failed to schedule notification: \(error)")
         }
+        
+        trackScheduledNotification(model)
+    }
+    
+    func notificationIsTracked(_ model: NotificationModel) -> Bool {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: model.name)
+    }
+    
+    func trackScheduledNotification(_ model: NotificationModel) {
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: model.name)
     }
 }
