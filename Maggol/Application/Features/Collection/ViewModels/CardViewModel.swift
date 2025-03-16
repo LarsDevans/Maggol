@@ -91,8 +91,8 @@ final class CardViewModel: ObservableObject {
     func saveEdits() {
         guard let original = originalCard,
               let edited = editedCard,
-              !((original == edited) &&
-                (original.amount == edited.amount))
+              ((original != edited) ||
+                (original.amount != edited.amount))
         else { return }
         
         delegate?.edit(with: original, updatedCard: edited)
