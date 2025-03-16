@@ -13,8 +13,8 @@ struct CardEditView: View {
     
     var body: some View {
         Form {
-            if let originalCard = viewModel.originalCard,
-               let editedCard = viewModel.editedCard {
+            if let originalCard = viewModel.editableCard,
+               let editedCard = viewModel.editableCardCopy {
                 Section("Kaart informatie") {
                     cardInformation(originalCard: originalCard, editedCard: editedCard)
                 }
@@ -35,7 +35,7 @@ private extension CardEditView {
             "Aantal",
             value: Binding(
                 get: { editedCard.amount },
-                set: { viewModel.updateEditedCardAmount($0) }
+                set: { viewModel.updateEditableCardAmount($0) }
             ),
             format: .number
         )

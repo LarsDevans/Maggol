@@ -9,5 +9,5 @@ import Foundation
 
 protocol CardDelegate {
     func update(with card: Card)
-    func edit(with originalCard: Card, updatedCard: Card)
+    func edit(with original: Card, forCopy: Card)
 }
