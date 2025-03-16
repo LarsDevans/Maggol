@@ -79,38 +79,43 @@ private extension CardController {
     
     @MainActor
     func editCard(originalCard: Card, updatedCard: Card) async {
-        if let existingCardIndex = cards.firstIndex(where: { $0.applicationCardId == updatedCard.applicationCardId }) {
-            let existingCard = cards[existingCardIndex]
-            
-            if originalCard.foil == updatedCard.foil {
-                originalCard.amount = updatedCard.amount
-                await dataService.save()
-                return
-            }
-            
-            existingCard.amount += updatedCard.amount
-            
-            if originalCard !== existingCard {
-                dataService.container.mainContext.delete(originalCard)
-                
-                if let originalIndex = cards.firstIndex(where: { $0 === originalCard }) {
-                    cards.remove(at: originalIndex)
-                }
-            }
-            
-            if let existingCardIndex = cards.firstIndex(where: { $0 === existingCard }) {
-                cards[existingCardIndex] = existingCard
-            }
-        } else {
-            if let originalIndex = cards.firstIndex(where: { $0 === originalCard }) {
-                dataService.container.mainContext.delete(originalCard)
-                dataService.container.mainContext.insert(updatedCard)
-                
-                cards.remove(at: originalIndex)
-                cards.append(updatedCard)
-            }
+        guard let existingCardIndex = cards.firstIndex(where: { $0.applicationCardId == updatedCard.applicationCardId }) else {
+            replaceCard(originalCard, with: updatedCard)
+            await dataService.save()
+            return
         }
+
+        let existingCard = cards[existingCardIndex]
         
+        if originalCard.foil == updatedCard.foil {
+            existingCard.amount = updatedCard.amount
+        } else {
+            existingCard.amount += updatedCard.amount
+            removeOriginalCardIfNeeded(originalCard, existingCard)
+        }
+
+        cards[existingCardIndex] = existingCard
         await dataService.save()
+    }
+
+    @MainActor
+    func replaceCard(_ originalCard: Card, with updatedCard: Card) {
+        if let originalIndex = cards.firstIndex(where: { $0 === originalCard }) {
+            dataService.container.mainContext.delete(originalCard)
+            dataService.container.mainContext.insert(updatedCard)
+            
+            cards[originalIndex] = updatedCard
+        }
+    }
+
+    @MainActor
+    func removeOriginalCardIfNeeded(_ originalCard: Card, _ existingCard: Card) {
+        guard originalCard !== existingCard else { return }
+        
+        dataService.container.mainContext.delete(originalCard)
+        
+        if let originalIndex = cards.firstIndex(where: { $0 === originalCard }) {
+            cards.remove(at: originalIndex)
+        }
     }
 }
