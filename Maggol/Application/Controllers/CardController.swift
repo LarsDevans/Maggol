@@ -82,36 +82,29 @@ private extension CardController {
         print("originalCard: amount \(originalCard.amount), foil \(originalCard.foil)")
         print("updatedCard: amount \(updatedCard.amount), foil \(updatedCard.foil)")
         
-        // Als updatedCard.applicationId al in de cards lijst staat
-            // ExistingCard = de kaart met hetzelfde applicationId als updatedCard.applicationId
-            // Verhoog de amount van ExistingCard met het amount van updatedCard
-            // Verwijder originalcard uit de cards collectie
-        
-        // Anders originalCard opzoeken in de cards lijst
-            // originalcard vervangen met updatedCard
-        
-        // Zoek naar een bestaande kaart met dezelfde applicationId
         if let existingCardIndex = cards.firstIndex(where: { $0.applicationCardId == updatedCard.applicationCardId }) {
             let existingCard = cards[existingCardIndex]
-            print(existingCard.amount)
             
-            // Update de hoeveelheid van de bestaande kaart
             existingCard.amount += updatedCard.amount
-            print(existingCard.amount)
             
-            // Verwijder de originele kaart alleen als het niet dezelfde kaart is
             if originalCard !== existingCard {
-                print("test")
-                if let originalIndex = cards.firstIndex(where: { $0 === originalCard }),
-                   originalIndex != existingCardIndex {
+                dataService.container.mainContext.delete(originalCard)
+                
+                if let originalIndex = cards.firstIndex(where: { $0 === originalCard }) {
                     cards.remove(at: originalIndex)
                 }
             }
+            
+            if let existingCardIndex = cards.firstIndex(where: { $0 === existingCard }) {
+                cards[existingCardIndex] = existingCard
+            }
         } else {
-            print("test2")
-            // Vervang de originele kaart met de geüpdatete versie
             if let originalIndex = cards.firstIndex(where: { $0 === originalCard }) {
-                cards[originalIndex] = updatedCard
+                dataService.container.mainContext.delete(originalCard)
+                dataService.container.mainContext.insert(updatedCard)
+                
+                cards.remove(at: originalIndex)
+                cards.append(updatedCard)
             }
         }
         
